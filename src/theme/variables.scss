@@ -24,11 +24,13 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
+  primary:    #233b72,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #AD2A34,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  defaultBg:  #fff,
+  defaultBar: #000
 );
 
 
@@ -76,3 +78,10 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+.toolbar-background {
+  background-color: colors($colors, defaultBar);
+}
+.toolbar-title {
+  color: #fff;
+}
