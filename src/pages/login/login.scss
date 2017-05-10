@@ -1,0 +1,23 @@
+page-login {
+  #app-description {
+    color: color($colors, primary);
+    width: 100%;
+  }
+
+  .logo img {
+    width: 40%;
+  }
+
+  form ion-input {
+    margin-bottom: 15px;
+    border: 1px solid color($colors, primary);
+  }
+  .text-input { margin: 8px !important; }
+
+  .after-login-buttons p {
+    color: color($colors, primary);
+  }
+  .after-login-buttons p#registrate {
+    color: color($colors, danger);
+  }
+}

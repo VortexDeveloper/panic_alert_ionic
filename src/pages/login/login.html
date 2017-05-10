@@ -1,0 +1,29 @@
+<ion-content padding center>
+  <div class="logo" text-center>
+    <img src='../../assets/images/logo1-01.png'>
+  </div>
+  <p id='app-description' text-center>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed neque auctor metus finibus vulputate. Nam quis fermentum nisi.</p>
+  <form (ngSubmit)="login()">
+    <ion-input placeholder="Email" type="email" [(ngModel)]="user.email" name="email"></ion-input>
+    <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password" name="password"></ion-input>
+    <button margin-top ion-button primary text-center outline block type='submit'>Entrar</button>
+  </form>
+  <hr />
+  <button margin-top ion-button primary text-center outline block>Login com Facebook</button>
+  <div class="after-login-buttons" margin>
+      <p margin text-center>
+        Ainda não tem cadastro?
+      </p>
+      <button
+        ion-button
+        color='danger'
+        outline
+        block
+        margin-top
+        clear
+        [openPage]="'Registration'"
+        >
+          CLIQUE AQUI
+      </button>
+  </div>
+</ion-content>
