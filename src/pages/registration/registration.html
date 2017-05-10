@@ -1,18 +1,29 @@
-<!--
-  Generated template for the Registration page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
-    <ion-title>registration</ion-title>
+    <ion-title>Cadastro</ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content padding center class='registration-page'>
+  <div class="logo" text-center>
+    <img src='../../assets/images/logo1-01.png'>
+  </div>
+  <p id='app-description' text-center>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed neque auctor metus finibus vulputate. Nam quis fermentum nisi.</p>
+  <form (ngSubmit)="login()">
+    <ion-input placeholder="Email" type="email" [(ngModel)]="user.email" name="email"></ion-input>
+    <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password" name="password"></ion-input>
+    <button margin-top ion-button primary text-center outline block type='submit'>Entrar</button>
+  </form>
+  <hr />
+  <button margin-top ion-button primary text-center outline block>Login com Facebook</button>
+  <div class="after-login-buttons" margin>
+      <p margin text-center>
+        Ainda não tem cadastro?
+      </p>
+      <!-- <button ion-button danger outline block margin-top clear [open-page]='Registration'>CLIQUE AQUI</button> -->
+      <!-- <p margin id='registrate' text-center (click)='registrate()'>
+        CLIQUE AQUI
+      </p> -->
+  </div>
 </ion-content>

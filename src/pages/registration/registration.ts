@@ -13,6 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'registration.html',
 })
 export class Registration {
+  user: any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
