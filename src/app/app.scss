@@ -25,3 +25,22 @@
 #panic-button {
 
 }
+
+.presentation-logo img {
+  width: 40%;
+}
+
+form ion-input {
+  margin-bottom: 15px;
+  border: 1px solid color($colors, primary);
+}
+.text-input { margin: 8px !important; }
+
+ion-header {
+}
+.toolbar-background {
+  background-color: color($colors, dark);
+}
+.toolbar-title {
+  color: #fff;
+}
