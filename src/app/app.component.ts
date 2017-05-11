@@ -22,7 +22,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Contatos de Ajuda', component: 'Contacts' },
       { title: 'Notificações', component: 'Notifications' },
-      { title: 'Configurações', component: 'Configurations' },
+      { title: 'Configurações', component: 'Configuration' },
       { title: 'Informações', component: 'Informations' },
       { title: 'Compartilhar', component: ListPage },
       { title: 'Ajuda', component: 'Help' },

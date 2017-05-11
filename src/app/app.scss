@@ -23,7 +23,13 @@
 }
 
 #panic-button {
+  background: none;
+}
 
+#panic-button img {
+  border: 35px solid #555;
+  border-radius: 50%;
+  width: 80%;
 }
 
 .presentation-logo img {

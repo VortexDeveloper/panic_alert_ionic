@@ -21,4 +21,7 @@ export class Configuration {
     console.log('ionViewDidLoad Configuration');
   }
 
+  showAlert() {
+    alert('teste');
+  }
 }
