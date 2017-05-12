@@ -5,14 +5,22 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>notifications</ion-title>
+    <ion-title>Notificações</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list class='notifications'>
+    <ion-item margin-bottom *ngFor="let i of [1,2,3]">
+      <h2>Nome do Contato <small>21 9 9999-9999</small></h2>
+      <div class="notification-info">
+        <p text-wrap>
+          Te enviou pedido de ajuda em 24/01/2017 às 22h
+        </p><br />
+        <button ion-button clear left color='danger'>Ver no mapa</button>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

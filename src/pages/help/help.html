@@ -5,14 +5,28 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>help</ion-title>
+    <ion-title>Ajuda</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-card class='faq' *ngFor='let i of [0, 1, 2]'>
+      <ion-card-header text-wrap>
+        <h2>Estou com problema para fazer o Login</h2>
+        <button ion-button clear right (click)='toggleTextHelp(i)'>
+          <ion-icon name='add'></ion-icon>
+        </button>
+      </ion-card-header>
+      <ion-card-content [hidden]='hideQuestion[i]'>
+        The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <hr>
+  <button ion-button block outline>
+    Não encontrou o que procurava?
+  </button>
 </ion-content>

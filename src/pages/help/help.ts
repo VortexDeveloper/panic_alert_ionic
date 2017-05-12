@@ -13,12 +13,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'help.html',
 })
 export class Help {
+  hideQuestion: Array<boolean> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    for (let i = 0; i < 3; i++) {
+        this.hideQuestion[i] = true;
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Help');
   }
 
+  toggleTextHelp(i) {
+    this.hideQuestion[i] = !this.hideQuestion[i];
+  }
 }

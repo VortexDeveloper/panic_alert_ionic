@@ -1,3 +1,8 @@
 page-help {
-
+  .faq ion-card-content {
+    transition: 2000ms all ease-out;
+  }
+  .faq ion-card-header {
+    display: flex;
+  }
 }
