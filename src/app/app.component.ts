@@ -11,7 +11,7 @@ import { ListPage } from '../pages/list/list';
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = HomePage;
+  rootPage: any = 'Login';
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
@@ -24,7 +24,6 @@ export class MyApp {
       { title: 'Notificações', component: 'Notifications' },
       { title: 'Configurações', component: 'Configuration' },
       { title: 'Informações', component: 'Informations' },
-      { title: 'Compartilhar', component: ListPage },
       { title: 'Ajuda', component: 'Help' },
       { title: 'Cadastro', component: 'Registration' },
       { title: 'Login', component: 'Login' }
