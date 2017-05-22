@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
+import { OpenPageDirective } from '../../components/open-page/open-page';
+
 /**
  * Generated class for the Login page.
  *

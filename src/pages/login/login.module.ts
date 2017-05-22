@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { Login } from './login';
-import { OpenPageDirective } from '../../components/open-page/open-page';
+
+import { OpenPageModule } from '../../components/open-page/open-page.module';
 
 @NgModule({
   declarations: [
     Login,
-    OpenPageDirective
   ],
   imports: [
+    OpenPageModule,
     IonicPageModule.forChild(Login),
   ],
   exports: [

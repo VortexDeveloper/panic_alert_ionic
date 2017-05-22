@@ -16,6 +16,7 @@ export class UsersProvider {
   private host: string = 'http://localhost:3000/';
   private users_path = this.host + 'users/';
   private login_path = this.users_path + 'sign_in.json';
+  private sign_up_path = this.users_path + 'sign_up.json';
 
   constructor(public http: Http, public authHttp: AuthHttp) {
     console.log('Hello UsersProvider Provider');
@@ -29,6 +30,11 @@ export class UsersProvider {
     let options = new RequestOptions({ headers: myHeader });
 
     return this.authHttp.get(this.login_path, options)
+      .map(res => res.json());
+  }
+
+  sign_up(user) {
+    return this.authHttp.post(this.sign_up_path, {user: user})
       .map(res => res.json());
   }
 
