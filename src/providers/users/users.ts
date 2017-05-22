@@ -13,7 +13,9 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class UsersProvider {
 
-  private host: string = 'http://localhost:3000/';
+  // private host: string = 'http://localhost:3000/';
+  private host: string = 'http://10.0.2.2:3000/';
+
   private users_path = this.host + 'users/';
   private login_path = this.users_path + 'sign_in.json';
   private sign_up_path = this.users_path + 'sign_up.json';

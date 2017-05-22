@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { Contacts } from './contacts';
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { ContactsPage } from './contacts';
 
 @NgModule({
   declarations: [
-    Contacts,
+    ContactsPage,
   ],
   imports: [
-    IonicPageModule.forChild(Contacts),
+    IonicPageModule.forChild(ContactsPage),
   ],
   exports: [
+    ContactsPage
+  ],
+  providers: [
     Contacts
   ]
 })

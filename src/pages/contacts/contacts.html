@@ -12,16 +12,22 @@
 
 
 <ion-content padding>
-  <ion-list class='contacts'>
-    <ion-item margin-bottom *ngFor="let i of [1,2,3]">
-      <h2>Nome do Contato</h2>
-      <div class="contact-info">
-        <small left>21 9 9999-9999</small>
+  <ion-list class='contacts' *ngIf="myContacts.length > 0">
+    <ion-item margin-bottom *ngFor="let contact of myContacts">
+      <h2>{{contact.name}}</h2>
+      <div class="contact-info" *ngFor="let number of contact.numbers">
+        <small left>{{number.value}}</small>
         <button ion-button right clear color='danger'>excluir</button>
       </div>
     </ion-item>
   </ion-list>
-  <button ion-button clear>
+  <ion-list class='contacts' *ngIf="myContacts.length == 0">
+    <ion-item margin-bottom>
+      <h2>Parece que você ainda não cadastrou...</h2>
+      <p text-wrap>Clique no botão abaixo para adicionar um contato de emergência</p>
+    </ion-item>
+  </ion-list>
+  <button ion-button clear (click)='registerContact()'>
     <ion-icon name="add" margin-right color='primary' style="font-size: 2em"></ion-icon>
     Adicionar
   </button>
