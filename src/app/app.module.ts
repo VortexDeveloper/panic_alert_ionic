@@ -11,6 +11,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 import { UsersProvider } from '../providers/users/users';
+import { TwilioProvider } from '../providers/twilio/twilio';
 
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
@@ -40,7 +41,8 @@ export function getAuthHttp(http) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsersProvider,
-    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]}
+    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
+    TwilioProvider
   ]
 })
 export class AppModule {}

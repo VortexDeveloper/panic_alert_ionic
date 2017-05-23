@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { TwilioProvider } from '../../providers/twilio/twilio';
 
 /**
  * Generated class for the Registration page.
@@ -17,7 +18,15 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
   templateUrl: 'registration.html',
 })
 export class Registration {
-  user: {name: string, username: string, email: string, password: string, password_confirmation: string};
+  user: {
+    name: string,
+    username: string,
+    email: string,
+    password: string,
+    password_confirmation: string,
+    phone_number: string
+  };
+  show_verify_field: boolean = false;
 
   constructor(
     public nav: NavController,
@@ -25,21 +34,24 @@ export class Registration {
     private userProvider: UsersProvider,
     private toastCtrl: ToastController,
     private locationAccuracy: LocationAccuracy,
-    private platform: Platform
+    private platform: Platform,
+    private twilio: TwilioProvider
   ) {
     this.user = {
       name: "",
       username: "",
       email: "",
       password: "",
-      password_confirmation: ""
+      password_confirmation: "",
+      phone_number: ""
     };
   }
 
   register() {
     this.userProvider.sign_up(this.user).subscribe(
       (data) => {
-        if(data.authentication_token !== undefined) {
+        this.presentToast(JSON.stringify(data));
+        if(data.authentication_token != "" || data.authentication_token !== undefined) {
           localStorage.setItem("authentication_token", data.authentication_token);
           localStorage.setItem("user", JSON.stringify(data.user));
 
@@ -47,7 +59,7 @@ export class Registration {
             this.requestLocationAccuracy();
           }
 
-          this.nav.setRoot('Contacts')
+          this.nav.setRoot('ContactsPage')
         }
       },
       (error) => {
@@ -55,7 +67,38 @@ export class Registration {
         this.presentToast(error.json().error);
       }
     )
-    // this.navCtrl.setRoot(HomePage);
+  }
+
+  verifyNumber() {
+    this.twilio.send_verification_code(this.user).subscribe(
+      (data) => {
+        if(data.success) {
+          this.show_verify_field = true;
+          this.presentToast(JSON.stringify(data));
+        } else {
+          this.presentToast("Não conseguimos enviar SMS para o seu número.");
+        }
+      },
+      (error) => {
+        this.presentToast(JSON.stringify(error));
+      }
+    );
+  }
+
+  checkVerificationCode() {
+    this.twilio.check_verification_code(this.user).subscribe(
+      (data) => {
+        if(data.success) {
+          this.register();
+          this.presentToast(JSON.stringify(data));
+        } else {
+          this.presentToast("O código está errado.");
+        }
+      },
+      (error) => {
+        this.presentToast(JSON.stringify(error));
+      }
+    );
   }
 
   requestLocationAccuracy() {

@@ -47,9 +47,9 @@ export class ContactsPage {
     };
 
     for(let info of contact.phoneNumbers) {
-      params.numbers.push({value: info.value});
+      params.numbers.push({value: info.value, type: info.type});
     }
-    
+
     this.myContacts.push(params);
   }
 

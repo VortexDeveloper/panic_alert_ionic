@@ -3,7 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { Registration } from './registration';
 
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
-
+import { TwilioProvider } from '../../providers/twilio/twilio';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
     Registration
   ],
   providers: [
-    LocationAccuracy
+    LocationAccuracy,
+    TwilioProvider
   ]
 })
 export class RegistrationModule {}
