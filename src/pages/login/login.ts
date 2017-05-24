@@ -31,7 +31,7 @@ export class Login {
   login() {
     this.userProvider.login(this.user).subscribe(
       (data) => {
-        if(data.authentication_token !== undefined) {
+        if(data.authentication_token != "" || data.authentication_token !== undefined) {
           localStorage.setItem("authentication_token", data.authentication_token);
           localStorage.setItem("user", JSON.stringify(data.user));
           this.nav.setRoot(HomePage)
