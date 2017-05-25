@@ -17,7 +17,7 @@ export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
     noJwtError: true,
     globalHeaders: [{'Accept': 'application/json', 'Content-Type': 'application/json'}],
-    tokenGetter: (() => localStorage.getItem('auth_token')),
+    tokenGetter: (() => localStorage.getItem('authentication_token')),
   }), http);
 }
 

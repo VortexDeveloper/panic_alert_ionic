@@ -29,4 +29,11 @@
   <button ion-button block outline>
     Não encontrou o que procurava?
   </button>
+  <form (ngSubmit)="sendSupportMail(message)">
+    <ion-item>
+      <ion-label>Mensagem de Ajuda</ion-label>
+      <ion-textarea [(ngModel)]="message" rows='10' name="message"></ion-textarea>
+    </ion-item>
+    <button ion-button type="submit" block>Enviar</button>
+  </form>
 </ion-content>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import * as CryptoJS from 'crypto-js';
+import { JwtHelper } from 'angular2-jwt';
 import { AuthHttp } from 'angular2-jwt';
 
 /*
@@ -13,12 +14,14 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class UsersProvider {
 
-  // private host: string = 'http://localhost:3000/';
-  private host: string = 'http://10.0.2.2:3000/';
+  jwtHelper: JwtHelper = new JwtHelper();
+  private host: string = 'http://localhost:3000/';
+  // private host: string = 'http://10.0.2.2:3000/';
 
   private users_path = this.host + 'users/';
   private login_path = this.users_path + 'sign_in.json';
   private sign_up_path = this.users_path + 'sign_up.json';
+  private support_url =  this.users_path + 'send_support_email.json?message=';
 
   constructor(public http: Http, public authHttp: AuthHttp) {
     console.log('Hello UsersProvider Provider');
@@ -70,5 +73,12 @@ export class UsersProvider {
     encodedSource = encodedSource.replace(/\//g, '_');
 
     return encodedSource;
+  }
+
+  send_support_email(message) {
+    this.support_url += message;
+    this.support_url += "&authentication_token="+this.jwtHelper.decodeToken(localStorage.getItem('authentication_token'));
+    console.log(this.support_url);
+    return this.authHttp.get(this.support_url).map(res => res.json());
   }
 }

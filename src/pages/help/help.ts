@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { UsersProvider } from '../../providers/users/users';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the Help page.
@@ -14,8 +16,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Help {
   hideQuestion: Array<boolean> = [];
+  message: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userProvider: UsersProvider,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController
+  ) {
     for (let i = 0; i < 3; i++) {
         this.hideQuestion[i] = true;
     }
@@ -27,5 +36,38 @@ export class Help {
 
   toggleTextHelp(i) {
     this.hideQuestion[i] = !this.hideQuestion[i];
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 5000
+    });
+    toast.present();
+  }
+
+  sendSupportMail(message) {
+    if (message != null) {
+      let loader = this.loadingCtrl.create({
+        content: "Enviando mensagem..."
+      });
+      loader.present();
+      this.userProvider.send_support_email(message).subscribe(
+        (_) => {
+          this.presentToast('Sua mensagem foi enviada para a nossa central de suporte e em breve responderemos através do email cadastrado.');
+          loader.dismiss();
+        },
+        (error) => {
+          this.presentToast(error)
+          console.log(error);
+          loader.dismiss();
+        },
+        () => {
+          this.message = null;
+        }
+      );
+    } else {
+      this.presentToast('O campo mensagem não pode ser vazio.');
+    }
   }
 }
