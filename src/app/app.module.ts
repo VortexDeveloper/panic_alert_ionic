@@ -13,6 +13,11 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { UsersProvider } from '../providers/users/users';
 import { TwilioProvider } from '../providers/twilio/twilio';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Facebook } from '@ionic-native/facebook';
+
+
+
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
     noJwtError: true,
@@ -37,8 +42,10 @@ export function getAuthHttp(http) {
     HomePage
   ],
   providers: [
+    Facebook,
     StatusBar,
     SplashScreen,
+    InAppBrowser,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsersProvider,
     {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},

@@ -28,6 +28,10 @@ export class AboutPage {
       {
         title: "Site",
         description: "www.panicodoalerta.com.br"
+      },
+      {
+        title: "Contato",
+        description: "contato@alertadepanico.com"
       }
     ];
   }
