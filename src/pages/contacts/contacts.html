@@ -14,9 +14,11 @@
 <ion-content padding>
   <ion-list class='contacts' *ngIf="myContacts.length > 0">
     <ion-item margin-bottom *ngFor="let contact of myContacts">
-      <h2>{{contact.name}}</h2>
-      <div class="contact-info" *ngFor="let number of contact.numbers">
-        <small left>{{number.type}}: {{number.value}}</small>
+      <h2>
+        <span left>{{contact.name}}</span>
+      </h2>
+      <div class="contact-info">
+        <small left>{{contact.cellphone}}</small>
         <button ion-button right clear color='danger'>excluir</button>
       </div>
     </ion-item>

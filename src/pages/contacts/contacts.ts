@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { ContactModel } from '../../model/contact/contact.model';
 
+import { ContactsProvider } from '../../providers/contacts/contacts';
+
+import { Events } from 'ionic-angular';
+
 /**
  * Generated class for the Contacts page.
  *
@@ -21,43 +25,73 @@ export class ContactsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private contacts: Contacts,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private contactsProvider: ContactsProvider,
+    private events: Events
   ) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Contacts');
+    this.load_contacts();
   }
 
   registerContact() {
     this.contacts.pickContact().then(
       (contact) => {
-        this.saveContact(contact);
+        this.save(contact);
       }
     ).catch(
       (e) => this.presentToast(JSON.stringify(e))
     );
   }
 
-  saveContact(contact) {
+  removeContact(contact) {}
+
+  private presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 9000
+    });
+    toast.present();
+  }
+
+  private save(contact) {
     contact = contact._objectInstance;
-    let params = {
-      name: contact.displayName,
-      numbers: []
-    };
+    let params = this.contact_params();
+    params.name = contact.displayName;
 
     for(let info of contact.phoneNumbers) {
       params.numbers.push({value: info.value, type: info.type});
     }
 
-    this.myContacts.push(params);
+    this.contactsProvider.create(params).subscribe(
+      (contacts) => {
+        this.presentToast(contacts.message);
+        this.reload_contacts(contacts.list);
+      },
+      (error) => {
+        let data = error.json();
+        this.presentToast(data.errors.message);
+      }
+    );
   }
 
-  presentToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 5000
-    });
-    toast.present();
+  private contact_params() {
+    return {
+      name: "",
+      numbers: []
+    };
+  }
+
+  private reload_contacts(contacts_list) {
+    localStorage.setItem('emergency_contacts', contacts_list);
+    this.myContacts = contacts_list;
+  }
+
+  private load_contacts() {
+    this.contactsProvider.index().subscribe(
+      (contacts) => this.reload_contacts(contacts.list),
+      (error) => {
+        let data = error.json();
+        this.presentToast(data.errors.message);
+      }
+    );
   }
 }

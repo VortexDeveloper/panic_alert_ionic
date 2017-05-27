@@ -15,6 +15,7 @@ import { TwilioProvider } from '../providers/twilio/twilio';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
+import { ContactsProvider } from '../providers/contacts/contacts';
 
 
 
@@ -49,7 +50,8 @@ export function getAuthHttp(http) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsersProvider,
     {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
-    TwilioProvider
+    TwilioProvider,
+    ContactsProvider
   ]
 })
 export class AppModule {}
