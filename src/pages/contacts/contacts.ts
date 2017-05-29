@@ -5,8 +5,6 @@ import { ContactModel } from '../../model/contact/contact.model';
 
 import { ContactsProvider } from '../../providers/contacts/contacts';
 
-import { Events } from 'ionic-angular';
-
 /**
  * Generated class for the Contacts page.
  *
@@ -26,8 +24,7 @@ export class ContactsPage {
     public navParams: NavParams,
     private contacts: Contacts,
     private toastCtrl: ToastController,
-    private contactsProvider: ContactsProvider,
-    private events: Events
+    private contactsProvider: ContactsProvider
   ) {
     this.load_contacts();
   }
@@ -42,7 +39,15 @@ export class ContactsPage {
     );
   }
 
-  removeContact(contact) {}
+  removeContact(contact) {
+    this.contactsProvider.drop_contact(contact).subscribe(
+      (contacts) => this.reload_contacts(contacts.list),
+      (error) => {
+        let data = error.json();
+        this.presentToast(data.errors.message);
+      }
+    );
+  }
 
   private presentToast(msg) {
     let toast = this.toastCtrl.create({

@@ -19,7 +19,7 @@
       </h2>
       <div class="contact-info">
         <small left>{{contact.cellphone}}</small>
-        <button ion-button right clear color='danger'>excluir</button>
+        <button ion-button right clear color='danger' (click)='removeContact(contact)'>EXCLUIR</button>
       </div>
     </ion-item>
   </ion-list>

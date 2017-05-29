@@ -47,6 +47,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, linkType: 'internalLink' },
       { title: 'Contatos de Ajuda', component: 'ContactsPage', linkType: 'internalLink' },
+      { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink' },
       { title: 'Notificações', component: 'Notifications', linkType: 'internalLink' },
       { title: 'Configurações', component: 'Configuration', linkType: 'internalLink' },
       { title: 'Informações', component: 'Informations', linkType: 'internalLink' },
