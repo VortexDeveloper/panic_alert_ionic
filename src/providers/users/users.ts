@@ -15,13 +15,15 @@ import { AuthHttp } from 'angular2-jwt';
 export class UsersProvider {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  private host: string = 'http://localhost:3000/';
-  // private host: string = 'http://10.0.2.2:3000/';
+  // private host: string = 'http://localhost:3000/';
+  private host: string = 'http://10.0.2.2:3000/';
+  // private host: string = 'https://alertadepanico.herokuapp.com/';
 
   private users_path = this.host + 'users/';
   private login_path = this.users_path + 'sign_in.json';
   private sign_up_path = this.users_path + 'sign_up.json';
   private support_url =  this.users_path + 'send_support_email.json?message=';
+  private save_notification_token_url =  this.users_path + 'save_notification_token.json';
 
   constructor(public http: Http, public authHttp: AuthHttp) {
     console.log('Hello UsersProvider Provider');
@@ -40,6 +42,11 @@ export class UsersProvider {
 
   sign_up(user) {
     return this.authHttp.post(this.sign_up_path, {user: user})
+      .map(res => res.json());
+  }
+
+  saveNotificationToken(t) {
+    return this.authHttp.post(this.save_notification_token_url, {user: t})
       .map(res => res.json());
   }
 

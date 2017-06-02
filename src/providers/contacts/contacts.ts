@@ -14,8 +14,9 @@ import { AuthHttp } from 'angular2-jwt';
 export class ContactsProvider {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  private host: string = 'http://localhost:3000/';
-  // private host: string = 'http://10.0.2.2:3000/';
+  // private host: string = 'http://localhost:3000/';
+  private host: string = 'http://10.0.2.2:3000/';
+  // private host: string = 'https://alertadepanico.herokuapp.com/';
 
   private contacts_path = this.host + 'contacts';
   private open_requests_path = this.contacts_path + '/open_requests';

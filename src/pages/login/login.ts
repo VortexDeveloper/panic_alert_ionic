@@ -5,6 +5,8 @@ import { UsersProvider } from '../../providers/users/users';
 
 import { OpenPageDirective } from '../../components/open-page/open-page';
 
+import { Push, PushToken } from '@ionic/cloud-angular';
+
 /**
  * Generated class for the Login page.
  *
@@ -23,7 +25,8 @@ export class Login {
     public nav: NavController,
     public navParams: NavParams,
     private userProvider: UsersProvider,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private push: Push
   ) {
     this.user = {username: "", password: ""}
   }
@@ -31,10 +34,11 @@ export class Login {
   login() {
     this.userProvider.login(this.user).subscribe(
       (data) => {
-        if(data.authentication_token != "" || data.authentication_token !== undefined) {
-          localStorage.setItem("authentication_token", data.authentication_token);
+        if(data.authentication != "" || data.authentication !== undefined) {
+          localStorage.setItem("authentication_token", data.authentication);
           localStorage.setItem("user", JSON.stringify(data.user));
-          this.nav.setRoot(HomePage)
+          this.registerUserForPushNotification();
+          this.nav.setRoot(HomePage);
         }
       },
       (error) => {
@@ -44,11 +48,43 @@ export class Login {
     );
   }
 
-  presentToast(msg) {
+  private presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 5000
     });
     toast.present();
+  }
+
+  private registerUserForPushNotification() {
+    this.push.register().then((t: PushToken) => {
+      return this.push.saveToken(t);
+    }).then((t: PushToken) => {
+      this.subscribe_to_notifications(t);
+      console.log('Saved token: ', (t));
+    });
+  }
+
+  private subscribe_to_notifications(t: PushToken) {
+    this.userProvider.saveNotificationToken(t).subscribe(
+      (_) => {},
+      (error) => { alert(JSON.stringify(error)) }
+    );
+
+    this.push.plugin.on('notification').subscribe(
+      (notification) => {
+        alert('Received a notification ' + JSON.stringify(notification));
+      });
+
+    this.push.plugin.on('registration').subscribe(
+      (registration) => {
+        alert('Received a notification ' + JSON.stringify(registration));
+      });
+
+    this.push.plugin.on('error').subscribe(error => {
+      alert('Received a notification ' + JSON.stringify(error));
+    });
+
+
   }
 }

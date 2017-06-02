@@ -8,6 +8,7 @@ import { Login } from '../pages/login/login';
 import { ListPage } from '../pages/list/list';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AlertController } from 'ionic-angular';
+import { Push, PushToken } from '@ionic/cloud-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,6 +24,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private iab: InAppBrowser,
     private alertCtrl: AlertController,
+    private push: Push,
     private fb: Facebook
   ) {
     this.initializeApp();
@@ -111,6 +113,7 @@ export class MyApp {
                 window.localStorage.removeItem("user");
                 window.localStorage.removeItem("authentication_token");
                 this.nav.setRoot(Login);
+                this.logout();
             //   },
             //   (error) => console.log(error)
             // );
@@ -122,4 +125,7 @@ export class MyApp {
     alert.present();
   }
 
+  logout() {
+    this.push.unregister();
+  }
 }

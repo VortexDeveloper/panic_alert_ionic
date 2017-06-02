@@ -17,6 +17,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
 import { ContactsProvider } from '../providers/contacts/contacts';
 
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { NotificationProvider } from '../providers/notification/notification';
+
+// import { ApiKeys } from '../../api_keys.ts';
+
 
 
 export function getAuthHttp(http) {
@@ -25,7 +30,22 @@ export function getAuthHttp(http) {
     globalHeaders: [{'Accept': 'application/json', 'Content-Type': 'application/json'}],
     tokenGetter: (() => localStorage.getItem('authentication_token')),
   }), http);
-}
+};
+
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': 'fc69a24b',
+  },
+  'push': {
+    'sender_id': '71910231492',
+    'pluginConfig': {
+      'android': {
+        'iconColor': '#343434'
+      }
+    }
+  }
+};
 
 @NgModule({
   declarations: [
@@ -36,6 +56,7 @@ export function getAuthHttp(http) {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +72,8 @@ export function getAuthHttp(http) {
     UsersProvider,
     {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
     TwilioProvider,
-    ContactsProvider
+    ContactsProvider,
+    NotificationProvider
   ]
 })
 export class AppModule {}

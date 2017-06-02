@@ -26,7 +26,7 @@
           <button ion-button right clear color='danger' (click)='refuseRequest(request)'>REJEITAR</button>
         </div>
         <div *ngIf='request.aceito'>
-          <span>Você foi adicionado à lista de contatos de {{request.name}}</span>
+          <span text-wrap>Você foi adicionado à lista de contatos de {{request.name}}</span>
         </div>
         <div *ngIf='!request.aceito && request.aceito != undefined'>
           <span>O contato foi recusado.</span>
