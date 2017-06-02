@@ -35,6 +35,7 @@ export class Login {
     this.userProvider.login(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication !== undefined) {
+          alert('oi');
           localStorage.setItem("authentication_token", data.authentication);
           localStorage.setItem("user", JSON.stringify(data.user));
           this.registerUserForPushNotification();
@@ -67,24 +68,22 @@ export class Login {
 
   private subscribe_to_notifications(t: PushToken) {
     this.userProvider.saveNotificationToken(t).subscribe(
-      (_) => {},
+      (_) => {
+        alert('subscribing...');
+        this.push.rx.notification().subscribe(
+          (notification) => {
+            alert('Received a notification ' + JSON.stringify(notification));
+          },
+          (error) => {
+            alert('Received a error ' + JSON.stringify(error));
+          });
+
+        // this.push.plugin.on('error').subscribe(
+        //   error => {
+        //     alert('Received a notification ' + JSON.stringify(error));
+        //   });
+      },
       (error) => { alert(JSON.stringify(error)) }
     );
-
-    this.push.plugin.on('notification').subscribe(
-      (notification) => {
-        alert('Received a notification ' + JSON.stringify(notification));
-      });
-
-    this.push.plugin.on('registration').subscribe(
-      (registration) => {
-        alert('Received a notification ' + JSON.stringify(registration));
-      });
-
-    this.push.plugin.on('error').subscribe(error => {
-      alert('Received a notification ' + JSON.stringify(error));
-    });
-
-
   }
 }

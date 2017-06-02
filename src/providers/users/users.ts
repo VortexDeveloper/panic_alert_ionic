@@ -16,8 +16,8 @@ export class UsersProvider {
 
   jwtHelper: JwtHelper = new JwtHelper();
   // private host: string = 'http://localhost:3000/';
-  private host: string = 'http://10.0.2.2:3000/';
-  // private host: string = 'https://alertadepanico.herokuapp.com/';
+  // private host: string = 'http://10.0.2.2:3000/';
+  private host: string = 'https://alertadepanico.herokuapp.com/';
 
   private users_path = this.host + 'users/';
   private login_path = this.users_path + 'sign_in.json';

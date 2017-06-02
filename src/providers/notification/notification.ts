@@ -13,8 +13,8 @@ import { AuthHttp } from 'angular2-jwt';
 @Injectable()
 export class NotificationProvider {
   // private host: string = 'http://localhost:3000/';
-  private host: string = 'http://10.0.2.2:3000/';
-  // private host: string = 'https://alertadepanico.herokuapp.com/';
+  // private host: string = 'http://10.0.2.2:3000/';
+  private host: string = 'https://alertadepanico.herokuapp.com/';
   private notifications_path = this.host + 'notifications';
 
   constructor(
