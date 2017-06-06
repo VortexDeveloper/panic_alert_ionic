@@ -61,6 +61,7 @@ export class ContactsPage {
     contact = contact._objectInstance;
     let params = this.contact_params();
     params.name = contact.displayName;
+    params.display_name = contact.displayName;
 
     for(let info of contact.phoneNumbers) {
       params.numbers.push({value: info.value, type: info.type});
@@ -81,6 +82,7 @@ export class ContactsPage {
   private contact_params() {
     return {
       name: "",
+      display_name: "",
       numbers: []
     };
   }

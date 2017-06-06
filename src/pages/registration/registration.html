@@ -10,12 +10,42 @@
     <img src='assets/images/logo1-01.png'>
   </div>
 
-  <ion-input placeholder="Nome" type="text" [(ngModel)]="user.name" name="name"></ion-input>
-  <ion-input placeholder="Username" type="text" [(ngModel)]="user.username" name="username"></ion-input>
-  <ion-input placeholder="Email" type="email" [(ngModel)]="user.email" name="email"></ion-input>
-  <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password" name="password"></ion-input>
-  <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password_confirmation" name="password_confirmation"></ion-input>
-  <ion-input placeholder="Celular" type="phone" [(ngModel)]="user.phone_number" name="phone_number"></ion-input>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-input placeholder="Nome" type="text" [(ngModel)]="user.name" name="name"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-input placeholder="Username" type="text" [(ngModel)]="user.username" name="username"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-input placeholder="Email" type="email" [(ngModel)]="user.email" name="email"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password" name="password"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-input placeholder="Confirme sua Senha" type="password" [(ngModel)]="user.password_confirmation" name="password_confirmation"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>
+        <ion-input [attr.maxlength]="2" placeholder="DDD" type="phone" [(ngModel)]="user.ddd" name="ddd"></ion-input>
+      </ion-col>
+      <ion-col col-9>
+        <ion-input [attr.maxlength]="9" placeholder="Celular" type="phone" [(ngModel)]="user.phone_number" name="phone_number"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-input placeholder="Código de Verificação" type="text"
     [(ngModel)]="user.code" name="code" *ngIf="show_verify_field"></ion-input>
   <button (click)="verifyNumber()" margin-top ion-button primary text-center

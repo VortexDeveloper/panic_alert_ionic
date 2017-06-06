@@ -50,16 +50,15 @@ export class Registration {
   register() {
     this.userProvider.sign_up(this.user).subscribe(
       (data) => {
-        this.presentToast(JSON.stringify(data));
-        if(data.authentication_token != "" || data.authentication_token !== undefined) {
-          localStorage.setItem("authentication_token", data.authentication_token);
+        if(data.authentication != "" || data.authentication != undefined) {
+          localStorage.setItem("authentication_token", data.authentication);
           localStorage.setItem("user", JSON.stringify(data.user));
 
           if(this.platform.is('cordova')) {
             this.requestLocationAccuracy();
           }
 
-          this.nav.setRoot('ContactsPage')
+          this.nav.setRoot('ContactsPage');
         }
       },
       (error) => {
@@ -70,11 +69,11 @@ export class Registration {
   }
 
   verifyNumber() {
+    this.user.phone_number = this.user.phone_number.replace('-', '');
     this.twilio.send_verification_code(this.user).subscribe(
       (data) => {
         if(data.success) {
           this.show_verify_field = true;
-          this.presentToast(JSON.stringify(data));
         } else {
           this.presentToast("Não conseguimos enviar SMS para o seu número.");
         }
@@ -89,8 +88,8 @@ export class Registration {
     this.twilio.check_verification_code(this.user).subscribe(
       (data) => {
         if(data.success) {
+          this.presentToast(data.message);
           this.register();
-          this.presentToast(JSON.stringify(data));
         } else {
           this.presentToast("O código está errado.");
         }

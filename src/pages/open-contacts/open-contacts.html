@@ -20,7 +20,7 @@
         <span left>{{request.name}}</span>
       </h2>
       <div class="contact-info">
-        <small left>{{request.cellphone}}</small>
+        <small left>{{request.phone_number}}</small>
         <div *ngIf='request.aceito == undefined'>
           <button ion-button right clear color='danger' (click)='acceptRequest(request)'>ACEITAR</button>
           <button ion-button right clear color='danger' (click)='refuseRequest(request)'>REJEITAR</button>

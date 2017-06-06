@@ -52,26 +52,27 @@ export class TwilioProvider {
   }
 
   send_verification_code(user) {
-    this.verification_parameters.phone_number = user.phone_number;
-    // this.verify_url += "&via=sms";
-    // this.verify_url += "&country_code=55";
-    // this.verify_url += "&phone_number="+user.phone_number;
-    // this.verify_url += "&code_length=4";
-    // this.verify_url += "&locale=pt";
+    this.verification_parameters.phone_number = user.ddd + user.phone_number;
 
     return this.http.post(this.verify_url, this.verification_parameters, this.options)
       .map(res => res.json());
   }
 
   check_verification_code(user) {
-    this.check_parameters.phone_number = user.phone_number;
+    this.check_parameters.phone_number = user.ddd + user.phone_number;
     this.check_parameters.verification_code = user.code;
 
-    this.check_url += "&country_code=55";
-    this.check_url += "&phone_number="+user.phone_number;
-    this.check_url += "&verification_code="+user.code;
+    let check_url = this.construct_get_params(this.check_url, this.check_parameters);
 
-    return this.http.get(this.check_url, this.options)
+    return this.http.get(check_url, this.options)
       .map(res => res.json());
+  }
+
+  construct_get_params(base_url, params) {
+    for (let key in params) {
+      base_url += '&'+key+'='+params[key];
+    }
+
+    return base_url;
   }
 }
