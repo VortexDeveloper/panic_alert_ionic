@@ -33,4 +33,9 @@
     <ion-icon name="add" margin-right color='primary' style="font-size: 2em"></ion-icon>
     Adicionar
   </button>
+  <button ion-button danger text-center outline block [openPage]="homepage" [setRoot]='true'
+  *ngIf="show_skip_button">
+    <ion-icon name="arrow" margin-right color='danger' style="font-size: 2em"></ion-icon>
+    Pular Etapa
+  </button>
 </ion-content>

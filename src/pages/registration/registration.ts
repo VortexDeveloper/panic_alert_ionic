@@ -58,7 +58,7 @@ export class Registration {
             this.requestLocationAccuracy();
           }
 
-          this.nav.setRoot('ContactsPage');
+          this.nav.setRoot('ContactsPage', {first_time: true});
         }
       },
       (error) => {
