@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController, ToastController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { NotificationProvider } from '../../providers/notification/notification';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-home',
@@ -14,36 +15,67 @@ export class HomePage {
     private alertCtrl: AlertController,
     private push: Push,
     private toastCtrl: ToastController,
-    private notificationProvider: NotificationProvider
+    private notificationProvider: NotificationProvider,
+    private geolocation: Geolocation
   ) {}
 
-  showPrompt() {
-    this.notificationProvider.notify('SOCORRO').subscribe(
-      (data) => {
-        let prompt = this.alertCtrl.create({
-          title: 'Enviando alerta!',
-          message: "A mensagem de alerta foi enviada para 2 dos seus contatos de emergência. Clique no botão para revisar seus contatos de emergência.",
-          buttons: [
-            {
-              text: 'Ok!',
-              handler: data => {
-                console.log('Cancel clicked');
-              }
-            },
-            {
-              text: 'Rever Contatos',
-              handler: data => {
-                this.nav.push('Contacts');
-              }
-            }
-          ]
-        });
-        prompt.present();
-      },
-      (error) => {
+  showPrompt(retry=0, timeout=5000) {
+    var options = { enableHighAccuracy: true, timeout:timeout, maximumAge: 0 };
+    this.geolocation.getCurrentPosition(options).then((position) => {
+      let positionObj = {
+        coords: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+          altitude: position.coords.altitude,
+          altitudeAccuracy: position.coords.altitudeAccuracy,
+          heading: position.coords.heading,
+          speed: position.coords.speed,
+        }
+      };
 
+      this.notificationProvider.notify(positionObj).subscribe(
+        (data) => {
+          let prompt = this.alertCtrl.create({
+            title: 'Alerta enviado!',
+            message: "A mensagem de alerta foi enviada para os seus contatos de emergência. Clique no botão para revisar seus contatos de emergência.",
+            buttons: [
+              {
+                text: 'Ok!',
+                handler: data => {
+                  console.log('Cancel clicked');
+                }
+              },
+              {
+                text: 'Rever Contatos',
+                handler: data => {
+                  this.nav.push('Contacts');
+                }
+              }
+            ]
+          });
+          prompt.present();
+        },
+        (error) => {
+          let errors = error.json().errors;
+          this.presentToast(errors.message);
+        }
+      );
+
+    }, (err) => {
+      if (err.code == err.PERMISSION_DENIED) {
+        this.presentToast("O Aplicativo não possui permissão para acessar a sua localização.");
+      } else if (err.code == err.POSITION_UNAVAILABLE) {
+        this.presentToast("Não estamos conseguindo capturar sua localização, verifique sua conexão com a internet.");
+      } else if (err.code == err.TIMEOUT) {
+        alert(retry);
+        if (retry > 3) {
+          this.presentToast("O aplicativo está encontrando dificuldade para obter sua localização.");
+        } else this.showPrompt(++retry, timeout+1000);
       }
-    );
+    });
+
+
   }
 
   private presentToast(msg) {

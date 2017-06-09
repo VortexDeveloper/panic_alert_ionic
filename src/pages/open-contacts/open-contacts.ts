@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, Events, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { ContactsProvider } from '../../providers/contacts/contacts';
 
@@ -21,9 +21,15 @@ export class OpenContactsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private toastCtrl: ToastController,
-    private contactsProvider: ContactsProvider
+    private contactsProvider: ContactsProvider,
+    private events: Events
   ) {
     this.load_requests();
+  }
+
+  ionViewDidEnter() {
+    localStorage.setItem('unread_accept_requests', "0");
+    this.events.publish('contact_request:up', "0");
   }
 
   acceptRequest(request) {

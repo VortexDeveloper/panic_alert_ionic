@@ -18,9 +18,10 @@ import { Facebook } from '@ionic-native/facebook';
 import { ContactsProvider } from '../providers/contacts/contacts';
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import { NotificationProvider } from '../providers/notification/notification';
 
-// import { ApiKeys } from '../../api_keys.ts';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 
@@ -73,7 +74,9 @@ const cloudSettings: CloudSettings = {
     {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
     TwilioProvider,
     ContactsProvider,
-    NotificationProvider
+    Geolocation,
+    GoogleMaps,
+    NotificationProvider,
   ]
 })
 export class AppModule {}

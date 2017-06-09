@@ -1,0 +1,21 @@
+page-help-request {
+  #senderName {
+    color: color($colors, primary);
+    font-weight: bold;
+  }
+  #ajuda {
+    color: color($colors, danger);
+    font-weight: bold;
+  }
+
+  .help-item {
+    border: 1px solid color($colors, primary);
+    padding: 16px 0;
+    margin-bottom: 16px;
+    font-size: 1.2em;
+  }
+
+  .help-items {
+    margin: 4em 0;
+  }
+}

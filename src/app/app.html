@@ -9,6 +9,9 @@
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="isExternalLink(p)">
         {{p.title}}
+        <ion-badge right *ngIf="!!p.hasBadge">
+          {{p.hasBadge}}
+        </ion-badge>
       </button>
       <button menuClose ion-item (click)="inviteFacebookFriends()">
         Convidar do Facebook

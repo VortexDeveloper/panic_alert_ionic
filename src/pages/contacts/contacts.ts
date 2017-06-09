@@ -68,6 +68,7 @@ export class ContactsPage {
     let params = this.contact_params();
     params.name = contact.displayName;
     params.display_name = contact.displayName;
+    params.kind = "contact_request";
 
     for(let info of contact.phoneNumbers) {
       params.numbers.push({value: info.value, type: info.type});
@@ -89,6 +90,7 @@ export class ContactsPage {
     return {
       name: "",
       display_name: "",
+      kind: "",
       numbers: []
     };
   }

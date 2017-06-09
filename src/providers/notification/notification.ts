@@ -24,11 +24,17 @@ export class NotificationProvider {
   ) {
   }
 
-  notify(message, options={}) {
+  index() {
+    return this.authHttp.get(this.notifications_path + '.json')
+      .map(res => res.json());
+  }
+
+  notify(position, options={}) {
     let parameters = {
       notifications: {
-        message: message,
-        options: options
+        position: position,
+        options: options,
+        kind: 'help_request'
       }
     };
 

@@ -42,7 +42,7 @@ export class ContactsProvider {
   }
 
   accept_emergency_contact_of(contact) {
-    return this.authHttp.get(this.accept_emergency_contact_path(contact) + '.json')
+    return this.authHttp.get(this.accept_emergency_contact_path(contact))
       .map(res => res.json());
   }
 
@@ -57,7 +57,7 @@ export class ContactsProvider {
   }
 
   accept_emergency_contact_path(contact) {
-    return this.contacts_path + '/' + contact.id + '/accept_request';
+    return this.contacts_path + '/' + contact.id + '/accept_request.json?kind=accept_request';
   }
 
   refuse_emergency_contact_path(contact) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, Events, NavController, NavParams, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
@@ -26,7 +26,8 @@ export class Login {
     public navParams: NavParams,
     private userProvider: UsersProvider,
     private toastCtrl: ToastController,
-    private push: Push
+    private push: Push,
+    private events: Events
   ) {
     this.user = {username: "", password: ""}
   }
@@ -37,6 +38,7 @@ export class Login {
         if(data.authentication != "" || data.authentication !== undefined) {
           localStorage.setItem("authentication_token", data.authentication);
           localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("unread_accept_requests", "0");
           this.registerUserForPushNotification();
           this.nav.setRoot(HomePage);
         }
@@ -70,7 +72,24 @@ export class Login {
       (_) => {
         this.push.rx.notification().subscribe(
           (notification) => {
-            alert('Received a notification ' + JSON.stringify(notification));
+            let note = notification.raw;
+            let payload = note.additionalData.payload;
+
+            switch(payload.data.kind) {
+              case "help_request":
+                this.nav.push('HelpRequestPage', {notification: note});
+                break;
+              case "accept_request":
+                this.nav.push('ContactsPage');
+                break;
+              case "contact_request":
+                let unread = parseInt(localStorage.getItem("unread_accept_requests"));
+                unread += 1;
+                localStorage.setItem("unread_accept_requests", unread.toString());
+                this.events.publish('contact_request:up', unread);
+                break;
+
+            }
           },
           (error) => {
             alert('Received a error ' + JSON.stringify(error));

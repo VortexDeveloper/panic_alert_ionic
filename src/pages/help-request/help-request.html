@@ -1,0 +1,39 @@
+<!--
+  Generated template for the HelpRequestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>HelpRequest</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1 margin-top text-center text-uppercase #senderName id='senderName'>{{sender_name}}</h1>
+  <h3 margin-top text-center>Está pedingo sua</h3>
+  <h1 text-center #ajuda id='ajuda'>AJUDA</h1>
+
+  <div class="help-items">
+    <div class='help-item' text-center>
+      {{hour}}
+    </div>
+    <div class='help-item' text-center>
+      Rua Gomes da Félix, 32
+    </div>
+    <div class='help-item' text-center>
+      LAT: {{position.latitude}} LNG: {{position.longitude}}
+    </div>
+    <div class='help-item' text-center>
+      ACC: {{position.accuracy}}
+    </div>
+  </div>
+
+  <div margin-top>
+    <button ion-button outline danger block color='danger' (click)='seeMap()'>Ver no mapa</button>
+  </div>
+</ion-content>
