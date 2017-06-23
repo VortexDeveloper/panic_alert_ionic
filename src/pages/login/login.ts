@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, Events, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, Events, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
@@ -20,6 +20,7 @@ import { Push, PushToken } from '@ionic/cloud-angular';
 })
 export class Login {
   user: {username: string, password: string};
+  loader: any;
 
   constructor(
     public nav: NavController,
@@ -27,12 +28,21 @@ export class Login {
     private userProvider: UsersProvider,
     private toastCtrl: ToastController,
     private push: Push,
-    private events: Events
+    private events: Events,
+    public loading: LoadingController
   ) {
     this.user = {username: "", password: ""}
   }
 
+  showLoader(loadingText){
+    this.loader = this.loading.create({
+      content: loadingText,
+    });
+    this.loader.present();
+  }
+
   login() {
+    this.showLoader('Efetuando login...');
     this.userProvider.login(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication !== undefined) {
@@ -41,9 +51,11 @@ export class Login {
           localStorage.setItem("unread_accept_requests", "0");
           this.events.publish('register_for_notification');
           this.nav.setRoot(HomePage);
+          this.loader.dismiss();
         }
       },
       (error) => {
+        this.loader.dismiss();
         console.log(error.json() || 'Server error');
         this.presentToast(error.json().error);
       }

@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { IonicPage, Events, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+=======
+import { IonicPage, NavController, NavParams, ToastController, Platform, LoadingController } from 'ionic-angular';
+>>>>>>> a6a02d8f94912c8727e6fca8e6a8f5e6cc9e00da
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
@@ -27,6 +31,7 @@ export class Registration {
     phone_number: string
   };
   show_verify_field: boolean = false;
+  loader: any;
 
   constructor(
     public nav: NavController,
@@ -36,7 +41,11 @@ export class Registration {
     private locationAccuracy: LocationAccuracy,
     private platform: Platform,
     private twilio: TwilioProvider,
+<<<<<<< HEAD
     private events: Events
+=======
+    public loading: LoadingController
+>>>>>>> a6a02d8f94912c8727e6fca8e6a8f5e6cc9e00da
   ) {
     this.user = {
       name: "",
@@ -48,7 +57,15 @@ export class Registration {
     };
   }
 
+  showLoader(loadingText){
+    this.loader = this.loading.create({
+      content: loadingText,
+    });
+    this.loader.present();
+  }
+
   register() {
+    this.showLoader('Registrando usuário...');
     this.userProvider.sign_up(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication != undefined) {
@@ -61,9 +78,11 @@ export class Registration {
 
           this.events.publish('register_for_notification');
           this.nav.setRoot('ContactsPage', {first_time: true});
+          this.loader.dismiss();
         }
       },
       (error) => {
+        this.loader.dismiss();
         console.log(error.json() || 'Server error');
         this.presentToast(error.json().error);
       }
@@ -71,9 +90,11 @@ export class Registration {
   }
 
   verifyNumber() {
+    this.showLoader('Verificando número...');
     this.user.phone_number = this.user.phone_number.replace('-', '');
     this.twilio.send_verification_code(this.user).subscribe(
       (data) => {
+        this.loader.dismiss();
         if(data.success) {
           this.show_verify_field = true;
         } else {
@@ -81,14 +102,17 @@ export class Registration {
         }
       },
       (error) => {
+        this.loader.dismiss();
         this.presentToast(JSON.stringify(error));
       }
     );
   }
 
   checkVerificationCode() {
+    this.showLoader('Verificando código informado...');
     this.twilio.check_verification_code(this.user).subscribe(
       (data) => {
+        this.loader.dismiss();
         if(data.success) {
           this.presentToast(data.message);
           this.register();
@@ -97,6 +121,7 @@ export class Registration {
         }
       },
       (error) => {
+        this.loader.dismiss();
         this.presentToast(JSON.stringify(error));
       }
     );
