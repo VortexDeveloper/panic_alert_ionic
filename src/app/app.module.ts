@@ -23,6 +23,8 @@ import { NotificationProvider } from '../providers/notification/notification';
 
 import { GoogleMaps } from '@ionic-native/google-maps';
 
+import { Vibration } from '@ionic-native/vibration';
+
 
 
 export function getAuthHttp(http) {
@@ -77,6 +79,7 @@ const cloudSettings: CloudSettings = {
     Geolocation,
     GoogleMaps,
     NotificationProvider,
+    Vibration
   ]
 })
 export class AppModule {}

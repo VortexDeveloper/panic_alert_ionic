@@ -3,6 +3,7 @@ import { NavController, AlertController, ToastController, LoadingController } fr
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Vibration } from '@ionic-native/vibration';
 
 @Component({
   selector: 'page-home',
@@ -19,7 +20,8 @@ export class HomePage {
     private toastCtrl: ToastController,
     private notificationProvider: NotificationProvider,
     private geolocation: Geolocation,
-    public loading: LoadingController
+    public loading: LoadingController,
+    private vibration: Vibration
   ) {}
 
   showLoader(loadingText){
@@ -31,8 +33,9 @@ export class HomePage {
 
 
   showPrompt(retry=0, timeout=5000) {
-    this.showLoader('Aguarde, enviando alerta...');
     var options = { enableHighAccuracy: true, timeout:timeout, maximumAge: 0 };
+    this.vibration.vibrate(1000);
+    this.showLoader('Aguarde, enviando alerta...');
     this.geolocation.getCurrentPosition(options).then((position) => {
       let positionObj = {
         coords: {

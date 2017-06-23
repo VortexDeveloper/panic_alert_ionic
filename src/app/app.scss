@@ -23,7 +23,7 @@
 }
 
 #panic-button {
-  background: url(/assets/images/btn.png);
+  background: url('../assets/images/btn.png');
   background-position: center;
   background-size: 100%;
   border-radius: 50%;
@@ -36,7 +36,7 @@
 }
 
 #panic-button:active {
-  background: url(/assets/images/btn_active.png);
+  background: url('../assets/images/btn_active.png');
   background-position: center;
   background-size: 100%;
 }
