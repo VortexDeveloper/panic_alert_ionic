@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, Events, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
@@ -35,7 +35,8 @@ export class Registration {
     private toastCtrl: ToastController,
     private locationAccuracy: LocationAccuracy,
     private platform: Platform,
-    private twilio: TwilioProvider
+    private twilio: TwilioProvider,
+    private events: Events
   ) {
     this.user = {
       name: "",
@@ -58,6 +59,7 @@ export class Registration {
             this.requestLocationAccuracy();
           }
 
+          this.events.publish('register_for_notification');
           this.nav.setRoot('ContactsPage', {first_time: true});
         }
       },

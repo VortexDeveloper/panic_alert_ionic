@@ -39,7 +39,7 @@ export class Login {
           localStorage.setItem("authentication_token", data.authentication);
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("unread_accept_requests", "0");
-          this.registerUserForPushNotification();
+          this.events.publish('register_for_notification');
           this.nav.setRoot(HomePage);
         }
       },
@@ -56,46 +56,5 @@ export class Login {
       duration: 5000
     });
     toast.present();
-  }
-
-  private registerUserForPushNotification() {
-    this.push.register().then((t: PushToken) => {
-      return this.push.saveToken(t);
-    }).then((t: PushToken) => {
-      this.subscribe_to_notifications(t);
-      console.log('Saved token: ', (t));
-    });
-  }
-
-  private subscribe_to_notifications(t: PushToken) {
-    this.userProvider.saveNotificationToken(t).subscribe(
-      (_) => {
-        this.push.rx.notification().subscribe(
-          (notification) => {
-            let note = notification.raw;
-            let payload = note.additionalData.payload;
-
-            switch(payload.data.kind) {
-              case "help_request":
-                this.nav.push('HelpRequestPage', {notification: note});
-                break;
-              case "accept_request":
-                this.nav.push('ContactsPage');
-                break;
-              case "contact_request":
-                let unread = parseInt(localStorage.getItem("unread_accept_requests"));
-                unread += 1;
-                localStorage.setItem("unread_accept_requests", unread.toString());
-                this.events.publish('contact_request:up', unread);
-                break;
-
-            }
-          },
-          (error) => {
-            alert('Received a error ' + JSON.stringify(error));
-          });
-      },
-      (error) => { alert(JSON.stringify(error)) }
-    );
   }
 }

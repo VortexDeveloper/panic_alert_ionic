@@ -11,8 +11,8 @@ import { AuthHttp } from 'angular2-jwt';
 */
 @Injectable()
 export class TwilioProvider {
-  verify_url = "https://api.authy.com/protected/json/phones/verification/start";
-  check_url = "https://api.authy.com/protected/json/phones/verification/check";
+  verify_url = "https://api.authy.com/protected/json/phones/verification/start?api_key=jN4reamNHGuXJ5iS76MmQEOmtWlygBUU";
+  check_url = "https://api.authy.com/protected/json/phones/verification/check?api_key=jN4reamNHGuXJ5iS76MmQEOmtWlygBUU";
   verification_parameters: {
     via: string,
     country_code: number,

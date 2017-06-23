@@ -10,6 +10,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AlertController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
 
+import { UsersProvider } from '../providers/users/users';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -27,7 +29,8 @@ export class MyApp {
     private alertCtrl: AlertController,
     private push: Push,
     private fb: Facebook,
-    private events: Events
+    private events: Events,
+    private userProvider: UsersProvider,
   ) {
     this.initializeApp();
     this.initializePages();
@@ -70,6 +73,10 @@ export class MyApp {
     this.events.subscribe('contact_request:down', (amount) => {
       this.pages[2].hasBadge = amount;
     });
+
+    this.events.subscribe('register_for_notification', () => {
+      this.register_for_notification();
+    });
   }
 
   isExternalLink(page){
@@ -102,6 +109,47 @@ export class MyApp {
         alert(error);
         console.log(error)
       }
+    );
+  }
+
+  private register_for_notification() {
+    this.push.register().then((t: PushToken) => {
+      return this.push.saveToken(t);
+    }).then((t: PushToken) => {
+      this.subscribe_to_notifications(t);
+      console.log('Saved token: ', (t));
+    });
+  }
+
+  private subscribe_to_notifications(t: PushToken) {
+    this.userProvider.saveNotificationToken(t).subscribe(
+      (_) => {
+        this.push.rx.notification().subscribe(
+          (notification) => {
+            let note = notification.raw;
+            let payload = note.additionalData.payload;
+
+            switch(payload.data.kind) {
+              case "help_request":
+                this.nav.push('HelpRequestPage', {notification: note});
+                break;
+              case "accept_request":
+                this.nav.push('ContactsPage');
+                break;
+              case "contact_request":
+                let unread = parseInt(localStorage.getItem("unread_accept_requests"));
+                unread += 1;
+                localStorage.setItem("unread_accept_requests", unread.toString());
+                this.events.publish('contact_request:up', unread);
+                break;
+
+            }
+          },
+          (error) => {
+            alert('Received a error ' + JSON.stringify(error));
+          });
+      },
+      (error) => { alert(JSON.stringify(error)) }
     );
   }
 

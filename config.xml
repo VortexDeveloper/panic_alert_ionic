@@ -3,7 +3,7 @@
     <name>Alerta do Pânico</name>
     <description>Spread the word</description>
     <author email="douggomes@vortexdeveloper.com" href="http://vortexdeveloper.com/">Vortex Developer</author>
-    <content src="http://192.168.0.109:8100" original-src="index.html"/>
+    <content src="index.html"/>
     <access origin="*"/>
     <allow-navigation href="http://ionic.local/*"/>
     <allow-navigation href="http://192.168.0.10:8100"/>

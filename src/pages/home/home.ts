@@ -68,7 +68,6 @@ export class HomePage {
       } else if (err.code == err.POSITION_UNAVAILABLE) {
         this.presentToast("Não estamos conseguindo capturar sua localização, verifique sua conexão com a internet.");
       } else if (err.code == err.TIMEOUT) {
-        alert(retry);
         if (retry > 3) {
           this.presentToast("O aplicativo está encontrando dificuldade para obter sua localização.");
         } else this.showPrompt(++retry, timeout+1000);
