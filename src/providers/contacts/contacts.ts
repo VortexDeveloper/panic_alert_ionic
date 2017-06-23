@@ -17,7 +17,7 @@ export class ContactsProvider {
   // private host: string = 'http://localhost:3000/';
   // private host: string = 'http://10.0.2.2:3000/'; // AVD
   // private host: string = 'http://192.168.0.109:3000/'; // Casa Thiago
-  private host: string = 'http://192.168.1.107:3000/'; // Vortex
+  private host: string = 'http://192.168.0.37:3000/'; // Vortex
   // private host: string = 'https://alertadepanico.herokuapp.com/';
 
   private contacts_path = this.host + 'contacts';

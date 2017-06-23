@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { IonicPage, Events, NavController, NavParams, ToastController, Platform } from 'ionic-angular';
-=======
-import { IonicPage, NavController, NavParams, ToastController, Platform, LoadingController } from 'ionic-angular';
->>>>>>> a6a02d8f94912c8727e6fca8e6a8f5e6cc9e00da
+import { IonicPage, Events, NavController, NavParams, ToastController, Platform, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { UsersProvider } from '../../providers/users/users';
 
@@ -41,11 +37,8 @@ export class Registration {
     private locationAccuracy: LocationAccuracy,
     private platform: Platform,
     private twilio: TwilioProvider,
-<<<<<<< HEAD
-    private events: Events
-=======
+    private events: Events,
     public loading: LoadingController
->>>>>>> a6a02d8f94912c8727e6fca8e6a8f5e6cc9e00da
   ) {
     this.user = {
       name: "",
