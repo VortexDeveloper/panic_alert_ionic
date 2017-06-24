@@ -9,6 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AlertController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
+import { UserModel } from '../model/user/user.model';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,6 +19,7 @@ export class MyApp {
   rootPage: any = 'Login';
   pages: Array<{title: string, component: any, linkType: any, hasBadge: any}>;
   contact_requests_size: any = "0";
+  current_user: UserModel = new UserModel();
 
   constructor(
     public platform: Platform,
@@ -31,7 +33,7 @@ export class MyApp {
   ) {
     this.initializeApp();
     this.initializePages();
-
+    this.current_user = new UserModel(JSON.parse(window.localStorage.getItem("user")));
   }
 
   initializeApp() {
@@ -46,21 +48,21 @@ export class MyApp {
     if (localStorage.getItem("user")){
       this.rootPage = HomePage;
     }
-    this.contact_requests_size = localStorage.getItem("unread_accept_requests");
+    this.contact_requests_size = window.localStorage.getItem("unread_accept_requests");
   }
 
   initializePages() {
     this.pages = [
       { title: 'Home', component: HomePage, linkType: 'internalLink', hasBadge: false },
       { title: 'Contatos de Ajuda', component: 'ContactsPage', linkType: 'internalLink', hasBadge: false },
-      { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink', hasBadge: this.contact_requests_size },
       { title: 'Notificações', component: 'Notifications', linkType: 'internalLink', hasBadge: false },
+      { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink', hasBadge: this.contact_requests_size },
       { title: 'Configurações', component: 'Configuration', linkType: 'internalLink', hasBadge: false },
       { title: 'Informações', component: 'Informations', linkType: 'internalLink', hasBadge: false },
       { title: 'Ajuda', component: 'Help', linkType: 'internalLink', hasBadge: false },
-      { title: 'Cadastro', component: 'Registration', linkType: 'internalLink', hasBadge: false },
-      { title: 'Login', component: 'Login', linkType: 'internalLink', hasBadge: false },
-      { title: 'Help!', component: 'HelpRequestPage', linkType: 'internalLink', hasBadge: false },
+      // { title: 'Cadastro', component: 'Registration', linkType: 'internalLink', hasBadge: false },
+      // { title: 'Login', component: 'Login', linkType: 'internalLink', hasBadge: false },
+      // { title: 'Help!', component: 'HelpRequestPage', linkType: 'internalLink', hasBadge: false },
       { title: 'Facebook', component: 'http://facebook.com/alertadepanico', linkType: 'externalLink', hasBadge: false }
     ];
 

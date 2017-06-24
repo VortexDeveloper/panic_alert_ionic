@@ -80,3 +80,24 @@ ion-app._gmaps_cdv_ .nav-decor, ion-app.gmapscdv_ .nav-decor, ion-app._gmaps_cdv
   color: #fff;
   border: none;
 }
+
+.profile {
+  background: rgb(75, 171, 187);
+  color: #fff;
+  height: 100px;
+  box-shadow: 0px 2px 10px 0px #4d4d4d;
+  margin-bottom: 10px;
+}
+
+.menuItem {
+  color: #333;
+  line-height: 1.5;
+}
+
+.back-button {
+    color: #fff;
+}
+
+ion-badge{
+  background-color: #4babbb !important;
+}
