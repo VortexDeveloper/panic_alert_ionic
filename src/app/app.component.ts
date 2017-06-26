@@ -17,7 +17,7 @@ import { UserModel } from '../model/user/user.model';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = 'Login';
-  pages: Array<{title: string, component: any, linkType: any, hasBadge: any}>;
+  pages: Array<{title: string, component: any, linkType: any, hasBadge: any, icon: string}>;
   contact_requests_size: any = "0";
   current_user: UserModel = new UserModel();
 
@@ -53,17 +53,17 @@ export class MyApp {
 
   initializePages() {
     this.pages = [
-      { title: 'Home', component: HomePage, linkType: 'internalLink', hasBadge: false },
-      { title: 'Contatos de Ajuda', component: 'ContactsPage', linkType: 'internalLink', hasBadge: false },
-      { title: 'Notificações', component: 'Notifications', linkType: 'internalLink', hasBadge: false },
-      { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink', hasBadge: this.contact_requests_size },
-      { title: 'Configurações', component: 'Configuration', linkType: 'internalLink', hasBadge: false },
-      { title: 'Informações', component: 'Informations', linkType: 'internalLink', hasBadge: false },
-      { title: 'Ajuda', component: 'Help', linkType: 'internalLink', hasBadge: false },
+      { title: 'Notificações', component: 'Notifications', linkType: 'internalLink', hasBadge: false, icon: 'notifications' },
+      { title: 'Informações', component: 'Informations', linkType: 'internalLink', hasBadge: false, icon: 'information' },
+      { title: 'Ajuda', component: 'Help', linkType: 'internalLink', hasBadge: false, icon: 'help' },
+      { title: 'Visite nossa página no Facebook', component: 'http://facebook.com/alertadepanico', linkType: 'externalLink', hasBadge: false, icon: 'logo-facebook' }
+      // { title: 'Home', component: HomePage, linkType: 'internalLink', hasBadge: false },
+      // { title: 'Contatos de Ajuda', component: 'ContactsPage', linkType: 'internalLink', hasBadge: false },
+      // { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink', hasBadge: this.contact_requests_size },
+      // { title: 'Configurações', component: 'Configuration', linkType: 'internalLink', hasBadge: false },
       // { title: 'Cadastro', component: 'Registration', linkType: 'internalLink', hasBadge: false },
       // { title: 'Login', component: 'Login', linkType: 'internalLink', hasBadge: false },
       // { title: 'Help!', component: 'HelpRequestPage', linkType: 'internalLink', hasBadge: false },
-      { title: 'Facebook', component: 'http://facebook.com/alertadepanico', linkType: 'externalLink', hasBadge: false }
     ];
 
     this.events.subscribe('contact_request:up', (amount) => {

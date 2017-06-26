@@ -6,16 +6,20 @@
         <hr>
         ({{current_user.ddd}}){{current_user.phone_number}}
       </button>
-      <button menuClose ion-item class="menuItem" *ngFor="let p of pages" (click)="isExternalLink(p)">
+      <button menuClose ion-item item-start class="menuItem" *ngFor="let p of pages" (click)="isExternalLink(p)">
+        <ion-icon name="{{p.icon}}"></ion-icon>
         {{p.title}}
         <ion-badge right *ngIf="!!p.hasBadge && contact_requests_size > 0">
           {{p.hasBadge}}
         </ion-badge>
       </button>
-      <button menuClose ion-item (click)="inviteFacebookFriends()">
-        Convidar do Facebook
+      <hr>
+      <button menuClose ion-item item-start class="menuItem" (click)="inviteFacebookFriends()">
+        <ion-icon name="mail"></ion-icon>
+        Convide amigos do Facebook
       </button>
-      <button menuClose ion-item (click)="presentConfirm()">
+      <button menuClose ion-item item-start class="menuItem" (click)="presentConfirm()">
+        <ion-icon name="log-out"></ion-icon>
         Sair
       </button>
     </ion-list>

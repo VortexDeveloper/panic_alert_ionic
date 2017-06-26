@@ -86,11 +86,11 @@ ion-app._gmaps_cdv_ .nav-decor, ion-app.gmapscdv_ .nav-decor, ion-app._gmaps_cdv
   color: #fff;
   height: 100px;
   box-shadow: 0px 2px 10px 0px #4d4d4d;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
 }
 
 .menuItem {
-  color: #333;
+  color: #5f5f5f;
   line-height: 1.5;
 }
 
@@ -100,4 +100,17 @@ ion-app._gmaps_cdv_ .nav-decor, ion-app.gmapscdv_ .nav-decor, ion-app._gmaps_cdv
 
 ion-badge{
   background-color: #4babbb !important;
+}
+
+ion-icon {
+  min-width: 20px;
+  color: #4babbb;
+}
+
+.bar-buttons {
+  display: flex;
+}
+
+.bar-button {
+  margin-right: 10px !important;
 }

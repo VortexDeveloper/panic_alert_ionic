@@ -24,4 +24,9 @@ export class Configuration {
   showAlert() {
     alert('teste');
   }
+
+  openPage(page){
+    this.navCtrl.push(page);
+  }
+  
 }

@@ -24,6 +24,10 @@ export class HomePage {
     private vibration: Vibration
   ) {}
 
+  openPage(page){
+    this.nav.push(page);
+  }
+
   showLoader(loadingText){
     this.loader = this.loading.create({
       content: loadingText,
