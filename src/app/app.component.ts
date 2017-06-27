@@ -11,6 +11,8 @@ import { AlertController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { UserModel } from '../model/user/user.model';
 
+
+
 @Component({
   templateUrl: 'app.html'
 })

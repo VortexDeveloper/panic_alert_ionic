@@ -26,6 +26,8 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Vibration } from '@ionic-native/vibration';
 import { RoutesProvider } from '../providers/routes/routes';
 
+import { Contacts } from '@ionic-native/contacts';
+
 
 
 export function getAuthHttp(http) {
@@ -81,7 +83,8 @@ const cloudSettings: CloudSettings = {
     GoogleMaps,
     NotificationProvider,
     Vibration,
-    RoutesProvider
+    RoutesProvider,
+    Contacts
   ]
 })
 export class AppModule {}

@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Vibration } from '@ionic-native/vibration';
 
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { ContactModel } from '../../model/contact/contact.model';
+import { ContactsProvider } from '../../providers/contacts/contacts';
+
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -20,6 +25,8 @@ export class HomePage {
     private toastCtrl: ToastController,
     private notificationProvider: NotificationProvider,
     private geolocation: Geolocation,
+    private contacts: Contacts,
+    private contactsProvider: ContactsProvider,
     public loading: LoadingController,
     private vibration: Vibration
   ) {}
@@ -108,5 +115,46 @@ export class HomePage {
       duration: 9000
     });
     toast.present();
+  }
+
+  registerContact() {
+    this.contacts.pickContact().then(
+      (contact) => {
+        this.save(contact);
+      }
+    ).catch(
+      (e) => this.presentToast(JSON.stringify(e))
+    );
+  }
+
+  private save(contact) {
+    contact = contact._objectInstance;
+    let params = this.contact_params();
+    params.name = contact.displayName;
+    params.display_name = contact.displayName;
+    params.kind = "contact_request";
+
+    for(let info of contact.phoneNumbers) {
+      params.numbers.push({value: info.value, type: info.type});
+    }
+
+    this.contactsProvider.create(params).subscribe(
+      (contacts) => {
+        this.presentToast(contacts.message);
+      },
+      (error) => {
+        let data = error.json();
+        this.presentToast(data.errors.message);
+      }
+    );
+  }
+
+  private contact_params() {
+    return {
+      name: "",
+      display_name: "",
+      kind: "",
+      numbers: []
+    };
   }
 }

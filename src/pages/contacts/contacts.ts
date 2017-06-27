@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { ContactModel } from '../../model/contact/contact.model';
-import { HomePage } from '../home/home';
+import { ContactsProvider } from '../../providers/contacts/contacts';
 
+import { HomePage } from '../home/home';
 import { OpenPageDirective } from '../../components/open-page/open-page';
 
-import { ContactsProvider } from '../../providers/contacts/contacts';
 
 /**
  * Generated class for the Contacts page.
@@ -28,11 +28,11 @@ export class ContactsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private contacts: Contacts,
-    private toastCtrl: ToastController,
-    private contactsProvider: ContactsProvider
+    private contactsProvider: ContactsProvider,
+    private toastCtrl: ToastController
   ) {
-    this.load_contacts();
-    this.show_skip_button = this.navParams.data.first_time;
+      this.load_contacts();
+      this.show_skip_button = this.navParams.data.first_time;
   }
 
   registerContact() {
@@ -109,4 +109,5 @@ export class ContactsPage {
       }
     );
   }
+
 }
