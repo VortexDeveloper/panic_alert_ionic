@@ -57,7 +57,7 @@ export class Registration {
   }
 
   register() {
-    this.showLoader('Registrando usuário...');
+    // this.showLoader('Registrando usuário...');
     this.userProvider.sign_up(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication != undefined) {
@@ -69,11 +69,11 @@ export class Registration {
           }
 
           this.nav.setRoot('ContactsPage', {first_time: true});
-          this.loader.dismiss();
+          // this.loader.dismiss();
         }
       },
       (error) => {
-        this.loader.dismiss();
+        // this.loader.dismiss();
         console.log(error.json() || 'Server error');
         this.presentToast(error.json().error);
       }
@@ -81,11 +81,11 @@ export class Registration {
   }
 
   verifyNumber() {
-    this.showLoader('Verificando número...');
+    // this.showLoader('Verificando número...');
     this.user.phone_number = this.user.phone_number.replace('-', '');
     this.twilio.send_verification_code(this.user).subscribe(
       (data) => {
-        this.loader.dismiss();
+        // this.loader.dismiss();
         if(data.success) {
           this.show_verify_field = true;
         } else {
@@ -93,17 +93,17 @@ export class Registration {
         }
       },
       (error) => {
-        this.loader.dismiss();
+        // this.loader.dismiss();
         this.presentToast(JSON.stringify(error));
       }
     );
   }
 
   checkVerificationCode() {
-    this.showLoader('Verificando código informado...');
+    // this.showLoader('Verificando código informado...');
     this.twilio.check_verification_code(this.user).subscribe(
       (data) => {
-        this.loader.dismiss();
+        // this.loader.dismiss();
         if(data.success) {
           this.presentToast(data.message);
           this.register();
@@ -112,7 +112,7 @@ export class Registration {
         }
       },
       (error) => {
-        this.loader.dismiss();
+        // this.loader.dismiss();
         this.presentToast(JSON.stringify(error));
       }
     );
