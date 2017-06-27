@@ -114,3 +114,13 @@ ion-icon {
 .bar-button {
   margin-right: 10px !important;
 }
+
+.logo-navbar {
+  width: 120px;
+  background: transparent;
+}
+
+.logo-navbar:hover, .logo-navbar:active {
+  background-color: transparent !important;
+  background: transparent !important;
+}
