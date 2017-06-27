@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
+import { AddressModel } from '../../model/address/address.model';
 
 /**
  * Generated class for the HelpRequestPage page.
@@ -16,12 +18,13 @@ export class HelpRequestPage {
   notification: any;
   position: any;
   hour: any;
-  address: any;
+  address: AddressModel = new AddressModel();
   sender_name: any;
 
   constructor(
     public nav: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    private nativeGeocoder: NativeGeocoder
   ) {
     this.notification = navParams.data.notification;
     var payload = this.notification.additionalData.payload.data;
@@ -30,6 +33,7 @@ export class HelpRequestPage {
       longitude: payload.position.longitude,
       accuracy: payload.position.accuracy
     };
+    this.getLocationAddress(payload.position.latitude, payload.position.longitude);
     this.hour = payload.hour;
     this.sender_name = payload.sender_name;
   }
@@ -41,4 +45,14 @@ export class HelpRequestPage {
   seeMap() {
     this.nav.push('MapPage', {position: this.position});
   }
+
+  getLocationAddress(latitude, longitude){
+    this.nativeGeocoder.reverseGeocode(latitude, longitude)
+    .then(
+      (result: NativeGeocoderReverseResult) => {
+        this.address = new AddressModel(result);
+      })
+    .catch((error: any) => console.log(error));
+  }
+
 }

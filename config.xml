@@ -107,4 +107,5 @@
     </plugin>
     <plugin name="cordova-android-support-gradle-release" spec="~0.0.1" />
     <plugin name="cordova-plugin-vibration" spec="~2.1.5" />
+    <plugin name="cordova-plugin-nativegeocoder" spec="~1.0.2" />
 </widget>

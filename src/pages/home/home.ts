@@ -8,6 +8,7 @@ import { Vibration } from '@ionic-native/vibration';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { ContactModel } from '../../model/contact/contact.model';
 import { ContactsProvider } from '../../providers/contacts/contacts';
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult } from '@ionic-native/native-geocoder';
 
 @IonicPage()
 @Component({
@@ -28,8 +29,10 @@ export class HomePage {
     private contacts: Contacts,
     private contactsProvider: ContactsProvider,
     public loading: LoadingController,
-    private vibration: Vibration
-  ) {}
+    private vibration: Vibration,
+    private nativeGeocoder: NativeGeocoder
+  ) {
+    }
 
   openPage(page){
     this.nav.push(page);
@@ -41,7 +44,6 @@ export class HomePage {
     });
     this.loader.present();
   }
-
 
   showPrompt(retry=0, timeout=5000) {
     var options = { enableHighAccuracy: true, timeout:timeout, maximumAge: 0 };
@@ -157,4 +159,5 @@ export class HomePage {
       numbers: []
     };
   }
+
 }

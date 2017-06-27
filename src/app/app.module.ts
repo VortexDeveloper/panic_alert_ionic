@@ -25,6 +25,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 
 import { Vibration } from '@ionic-native/vibration';
 import { RoutesProvider } from '../providers/routes/routes';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 import { Contacts } from '@ionic-native/contacts';
 
@@ -84,7 +85,8 @@ const cloudSettings: CloudSettings = {
     NotificationProvider,
     Vibration,
     RoutesProvider,
-    Contacts
+    Contacts,
+    NativeGeocoder
   ]
 })
 export class AppModule {}
