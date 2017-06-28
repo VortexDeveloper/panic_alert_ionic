@@ -48,7 +48,7 @@ export class HomePage {
   showPrompt(retry=0, timeout=5000) {
     var options = { enableHighAccuracy: true, timeout:timeout, maximumAge: 0 };
     this.vibration.vibrate(1000);
-    // this.showLoader('Aguarde, enviando alerta...');
+    this.showLoader('Aguarde, enviando alerta...');
     this.geolocation.getCurrentPosition(options).then((position) => {
       let positionObj = {
         coords: {
@@ -64,7 +64,7 @@ export class HomePage {
 
       this.notificationProvider.notify(positionObj).subscribe(
         (data) => {
-          // this.loader.dismiss();
+          this.loader.dismiss();
           let prompt = this.alertCtrl.create({
             title: 'Alerta enviado!',
             message: "A mensagem de alerta foi enviada para os seus contatos de emergência. Clique no botão para revisar seus contatos de emergência.",
@@ -86,25 +86,25 @@ export class HomePage {
           prompt.present();
         },
         (error) => {
-          // this.loader.dismiss();
+          this.loader.dismiss();
           let errors = error.json().errors;
           this.presentToast(errors.message);
         }
       );
 
     }, (err) => {
+      this.loader.dismiss();
       if (err.code == err.PERMISSION_DENIED) {
-        // this.loader.dismiss();
         this.presentToast("O Aplicativo não possui permissão para acessar a sua localização.");
       } else if (err.code == err.POSITION_UNAVAILABLE) {
-        // this.loader.dismiss();
         this.presentToast("Não estamos conseguindo capturar sua localização, verifique sua conexão com a internet.");
       } else if (err.code == err.TIMEOUT) {
-        alert(retry);
+        // alert(retry);
         if (retry > 3) {
-          // this.loader.dismiss();
           this.presentToast("O aplicativo está encontrando dificuldade para obter sua localização.");
-        } else this.showPrompt(++retry, timeout+1000);
+        } else {
+          this.showPrompt(++retry, timeout+1000);
+        }
       }
     });
 

@@ -48,19 +48,19 @@ export class Help {
 
   sendSupportMail(message) {
     if (message != null) {
-      // let loader = this.loadingCtrl.create({
-      //   content: "Enviando mensagem..."
-      // });
-      // loader.present();
+      let loader = this.loadingCtrl.create({
+        content: "Enviando mensagem..."
+      });
+      loader.present();
       this.userProvider.send_support_email(message).subscribe(
         (_) => {
           this.presentToast('Sua mensagem foi enviada para a nossa central de suporte e em breve responderemos através do email cadastrado.');
-          // loader.dismiss();
+          loader.dismiss();
         },
         (error) => {
           this.presentToast(error)
           console.log(error);
-          // loader.dismiss();
+          loader.dismiss();
         },
         () => {
           this.message = null;
