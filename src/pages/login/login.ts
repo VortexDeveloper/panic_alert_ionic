@@ -42,7 +42,7 @@ export class Login {
   }
 
   login() {
-    // this.showLoader('Efetuando login...');
+    this.showLoader('Fazendo login...');
     this.userProvider.login(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication !== undefined) {
@@ -51,13 +51,13 @@ export class Login {
           localStorage.setItem("unread_accept_requests", "0");
           this.registerUserForPushNotification();
           this.nav.setRoot(HomePage);
-          // this.loader.dismiss();
+          this.loader.dismiss();
         }
       },
       (error) => {
-        // this.loader.dismiss();
-        console.log(error.json() || 'Server error');
-        this.presentToast(error.json().error);
+        this.loader.dismiss();
+        console.log(error.json());
+        this.presentToast(error.json()[0].message);
       }
     );
   }
