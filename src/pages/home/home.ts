@@ -4,7 +4,7 @@ import { Push, PushToken } from '@ionic/cloud-angular';
 import { NotificationProvider } from '../../providers/notification/notification';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Vibration } from '@ionic-native/vibration';
-
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { ContactModel } from '../../model/contact/contact.model';
 import { ContactsProvider } from '../../providers/contacts/contacts';
@@ -30,9 +30,24 @@ export class HomePage {
     private contactsProvider: ContactsProvider,
     public loading: LoadingController,
     private vibration: Vibration,
-    private nativeGeocoder: NativeGeocoder
+    private nativeGeocoder: NativeGeocoder,
+    private admobFree: AdMobFree
   ) {
+      this.startAds();
     }
+
+  startAds(){
+    const bannerConfig: AdMobFreeBannerConfig = {
+      id: 'ca-app-pub-9804853996011720/1367217498',
+      isTesting: true,
+      autoShow: true
+    };
+    this.admobFree.banner.config(bannerConfig);
+    this.admobFree.banner.prepare()
+    .then(() => {
+    })
+    .catch(e => console.log(e));
+  }
 
   openPage(page){
     this.nav.push(page);
