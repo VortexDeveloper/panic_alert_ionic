@@ -1,0 +1,30 @@
+<!--
+  Generated template for the HelpHistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Meus Pedidos de Ajuda</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list class='help_requests'>
+    <template ngFor let-request [ngForOf]="help_requests">
+      <ion-item-group>
+        <ion-item-divider color="light">
+          Pedido #{{request.code}} <small item-right>{{request.created_at}}</small>
+        </ion-item-divider>
+      </ion-item-group>
+      <template ngFor let-destination [ngForOf]="request.destinations">
+        <ion-item>
+          {{destination.name}}
+          <ion-icon item-right small [color]="getIconColor(destination.status)" [name]="getIconName(destination.status)"></ion-icon>
+        </ion-item>
+      </template>
+    </template>
+  </ion-list>
+</ion-content>

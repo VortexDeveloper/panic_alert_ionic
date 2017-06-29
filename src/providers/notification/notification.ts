@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { JwtHelper } from 'angular2-jwt';
 import { AuthHttp } from 'angular2-jwt';
+import { RoutesProvider } from '../routes/routes';
 
 /*
   Generated class for the NotificationProvider provider.
@@ -12,17 +13,20 @@ import { AuthHttp } from 'angular2-jwt';
 */
 @Injectable()
 export class NotificationProvider {
-  // private host: string = 'http://localhost:3000/';
-  // private host: string = 'http://10.0.2.2:3000/'; // AVD
-  private host: string = 'http://192.168.0.37:3000/'; // Casa Thiago
-  // private host: string = 'http://192.168.1.107:3000/'; // Vortex
-  // private host: string = 'https://alertadepanico.herokuapp.com/';
-  private notifications_path = this.host + 'notifications';
+  private host: string;
+  private notifications_path: string;
 
   constructor(
     public http: Http,
-    public authHttp: AuthHttp
+    public authHttp: AuthHttp,
+    public routesProvider: RoutesProvider
   ) {
+      this.host = this.routesProvider.host();
+      this.setRoutes(this.host);
+  }
+
+  setRoutes(host){
+    this.notifications_path = host + 'notifications';
   }
 
   index() {
@@ -41,5 +45,12 @@ export class NotificationProvider {
 
     return this.authHttp.post(this.notifications_path + '.json', parameters)
       .map(res => res.json());
+  }
+
+  mark_as_received(notification_payload) {
+    var code = notification_payload.data.notId;
+    var url = this.notifications_path + '/' + code + '.json';
+
+    return this.authHttp.put(url, {}).map(res => res.json());
   }
 }

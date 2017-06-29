@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import * as CryptoJS from 'crypto-js';
 import { JwtHelper } from 'angular2-jwt';
 import { AuthHttp } from 'angular2-jwt';
+import { RoutesProvider } from '../routes/routes';
 
 /*
   Generated class for the UsersProvider provider.
@@ -13,22 +14,36 @@ import { AuthHttp } from 'angular2-jwt';
 */
 @Injectable()
 export class UsersProvider {
-
   jwtHelper: JwtHelper = new JwtHelper();
-  // private host: string = 'http://localhost:3000/';
-  // private host: string = 'http://10.0.2.2:3000/'; // AVD
-  private host: string = 'http://192.168.0.37:3000/'; // Casa Thiago
-  // private host: string = 'http://192.168.1.107:3000/'; // Vortex
-  // private host: string = 'https://alertadepanico.herokuapp.com/';
+  private host: string;
+  private users_path: string;
+  private login_path: string;
+  private sign_up_path: string;
+  private support_url: string;
+  private save_notification_token_url: string;
+  private my_help_requests_url: string;
 
-  private users_path = this.host + 'users/';
-  private login_path = this.users_path + 'sign_in.json';
-  private sign_up_path = this.users_path + 'sign_up.json';
-  private support_url =  this.users_path + 'send_support_email.json?message=';
-  private save_notification_token_url =  this.users_path + 'save_notification_token.json';
-
-  constructor(public http: Http, public authHttp: AuthHttp) {
+  constructor(
+    public http: Http,
+    public authHttp: AuthHttp,
+    public routesProvider: RoutesProvider
+  ) {
     console.log('Hello UsersProvider Provider');
+    this.host = this.routesProvider.host();
+    this.setRoutes(this.host);
+  }
+
+  setRoutes(host){
+    this.users_path = host + 'users/';
+    this.login_path = this.users_path + 'sign_in.json';
+    this.sign_up_path = this.users_path + 'sign_up.json';
+    this.my_help_requests_url = this.users_path + 'my_help_requests.json';
+    this.support_url =  this.users_path + 'send_support_email.json?message=';
+    this.save_notification_token_url =  this.users_path + 'save_notification_token.json';
+  }
+
+  my_help_requests() {
+    return this.authHttp.get(this.my_help_requests_url).map(res => res.json());
   }
 
   login(user) {

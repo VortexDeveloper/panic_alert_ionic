@@ -51,7 +51,6 @@ export class HomePage {
 
       this.notificationProvider.notify(positionObj).subscribe(
         (data) => {
-          this.loader.dismiss();
           let prompt = this.alertCtrl.create({
             title: 'Alerta enviado!',
             message: "A mensagem de alerta foi enviada para os seus contatos de emergência. Clique no botão para revisar seus contatos de emergência.",
@@ -71,6 +70,7 @@ export class HomePage {
             ]
           });
           prompt.present();
+          this.loader.dismiss();
         },
         (error) => {
           this.loader.dismiss();

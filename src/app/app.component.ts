@@ -11,6 +11,7 @@ import { AlertController } from 'ionic-angular';
 import { Push, PushToken } from '@ionic/cloud-angular';
 
 import { UsersProvider } from '../providers/users/users';
+import { NotificationProvider } from '../providers/notification/notification';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,6 +32,7 @@ export class MyApp {
     private fb: Facebook,
     private events: Events,
     private userProvider: UsersProvider,
+    private notificationProvider: NotificationProvider,
   ) {
     this.initializeApp();
     this.initializePages();
@@ -58,6 +60,7 @@ export class MyApp {
       { title: 'Contatos de Ajuda', component: 'ContactsPage', linkType: 'internalLink', hasBadge: false },
       { title: 'Solicitações de Contato', component: 'OpenContactsPage', linkType: 'internalLink', hasBadge: this.contact_requests_size },
       { title: 'Notificações', component: 'Notifications', linkType: 'internalLink', hasBadge: false },
+      { title: 'Pedidos de Ajuda', component: 'HelpHistoryPage', linkType: 'internalLink', hasBadge: false },
       { title: 'Configurações', component: 'Configuration', linkType: 'internalLink', hasBadge: false },
       { title: 'Informações', component: 'Informations', linkType: 'internalLink', hasBadge: false },
       { title: 'Ajuda', component: 'Help', linkType: 'internalLink', hasBadge: false },
@@ -128,6 +131,8 @@ export class MyApp {
           (notification) => {
             let note = notification.raw;
             let payload = note.additionalData.payload;
+
+            this.notificationProvider.mark_as_received(payload).subscribe(() => {});
 
             switch(payload.data.kind) {
               case "help_request":

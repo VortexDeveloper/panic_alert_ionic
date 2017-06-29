@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { JwtHelper } from 'angular2-jwt';
 import { AuthHttp } from 'angular2-jwt';
+import { RoutesProvider } from '../routes/routes';
 
 /*
   Generated class for the ContactProvider provider.
@@ -14,17 +15,23 @@ import { AuthHttp } from 'angular2-jwt';
 export class ContactsProvider {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  // private host: string = 'http://localhost:3000/';
-  // private host: string = 'http://10.0.2.2:3000/'; // AVD
-  // private host: string = 'http://192.168.0.109:3000/'; // Casa Thiago
-  private host: string = 'http://192.168.0.37:3000/'; // Vortex
-  // private host: string = 'https://alertadepanico.herokuapp.com/';
+  private host: string;
+  private contacts_path: string;
+  private open_requests_path: string;
 
-  private contacts_path = this.host + 'contacts';
-  private open_requests_path = this.contacts_path + '/open_requests';
-
-  constructor(public http: Http, public authHttp: AuthHttp) {
+  constructor(
+    public http: Http,
+    public authHttp: AuthHttp,
+    public routesProvider: RoutesProvider
+  ) {
     console.log('Hello ContactProvider Provider');
+    this.host = this.routesProvider.host();
+    this.setRoutes(this.host);
+  }
+
+  setRoutes(host){
+    this.contacts_path = host + 'contacts';
+    this.open_requests_path = this.contacts_path + '/open_requests';
   }
 
   create(contact_params) {
