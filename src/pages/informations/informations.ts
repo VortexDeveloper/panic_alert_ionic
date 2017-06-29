@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Facebook } from '@ionic-native/facebook';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free';
 
 /**
  * Generated class for the Informations page.
@@ -20,9 +21,21 @@ export class Informations {
     public navCtrl: NavController,
     public navParams: NavParams,
     private iab: InAppBrowser,
-    private fb: Facebook
+    private fb: Facebook,
+    private admobFree: AdMobFree
   ) {
-  }
+      const bannerConfig: AdMobFreeBannerConfig = {
+        id: 'ca-app-pub-9804853996011720/1367217498',
+        isTesting: true,
+        autoShow: true
+      };
+      this.admobFree.banner.config(bannerConfig);
+      this.admobFree.banner.prepare()
+      .then(() => {
+      })
+      .catch(e => console.log(e));
+    }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Informations');
