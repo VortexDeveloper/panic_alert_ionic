@@ -2,7 +2,11 @@
   <div class="presentation-logo" text-center>
     <img src='assets/images/logo1-01.png'>
   </div>
-  <p id='app-description' text-center>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed neque auctor metus finibus vulputate. Nam quis fermentum nisi.</p>
+  <p id='app-description' text-center>
+    O Aplicativo Alerta de Pânico foi desenvolvido com a intenção de ajudar
+    pessoas que se encontram em situação de risco e pânico, seja ela qual for.<br>
+    Acreditamos que um simples alerta pode salvar uma vida.
+  </p>
   <form (ngSubmit)="login()">
     <ion-input placeholder="Email ou username" type="username" [(ngModel)]="user.username" name="username"></ion-input>
     <ion-input placeholder="Senha" type="password" [(ngModel)]="user.password" name="password"></ion-input>
@@ -10,9 +14,6 @@
   </form>
   <hr />
   <div class="after-login-buttons" margin>
-      <p margin text-center>
-        Ainda não tem cadastro?
-      </p>
       <button
         ion-button
         color='danger'
@@ -22,7 +23,7 @@
         clear
         [openPage]="'Registration'"
         >
-          CLIQUE AQUI
+          CADASTRE-SE
       </button>
   </div>
 </ion-content>

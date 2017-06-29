@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Facebook } from '@ionic-native/facebook';
 
 /**
  * Generated class for the Informations page.
@@ -18,7 +19,8 @@ export class Informations {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    // private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private fb: Facebook
   ) {
   }
 
@@ -26,9 +28,23 @@ export class Informations {
     console.log('ionViewDidLoad Informations');
   }
 
-  // openLink(link){
-  //   if(link){
-  //     this.iab.create(link, '_system');
-  //   }
-  // }
+  openLink(link){
+    let browser = this.iab.create(link);
+    browser
+  }
+
+  inviteFacebookFriends() {
+    let options = {
+      url: "https://fb.me/202248836944012",
+      picture: "https://placehold.it/350x350"
+    }
+    this.fb.appInvite(options).then(
+      (obj) => console.log(obj),
+      (error) => {
+        alert(error);
+        console.log(error)
+      }
+    );
+  }
+
 }

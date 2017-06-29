@@ -13,15 +13,27 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-card class='faq' *ngFor='let i of [0, 1, 2]'>
+    <ion-card class='faq'>
       <ion-card-header text-wrap>
-        <h2>Estou com problema para fazer o Login</h2>
+        <h2>Onde posso adcionar meus contatos de emergência?</h2>
         <button ion-button clear right (click)='toggleTextHelp(i)'>
           <ion-icon name='add'></ion-icon>
         </button>
       </ion-card-header>
       <ion-card-content [hidden]='hideQuestion[i]'>
-        The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+        Clique no botão de "+" na barra de navegação, em seguida elecione o contato desejado na lista de contatos do seu telefone.
+        Será enviada uma notificação ao usuário para que ele aceite seu convite, enquanto ele não aceitar, não aparecerá no sua lista de contatos.
+      </ion-card-content>
+    </ion-card>
+    <ion-card class='faq'>
+      <ion-card-header text-wrap>
+        <h2>Quando aperto rapidamente o botão de pânico ele não funciona.</h2>
+        <button ion-button clear right (click)='toggleTextHelp(i)'>
+          <ion-icon name='add'></ion-icon>
+        </button>
+      </ion-card-header>
+      <ion-card-content [hidden]='hideQuestion[i]'>
+        Isso ocorre porque para que seus contatos sejam acionados é necessário que segure o botão por pelo menos 1 segundo, isso é assim para evitar acionamentos acidentais.
       </ion-card-content>
     </ion-card>
   </ion-list>
@@ -30,7 +42,7 @@
     Não encontrou o que procurava?
   </button>
   <form (ngSubmit)="sendSupportMail(message)">
-    <ion-label>Mensagem de Ajuda</ion-label>
+    <ion-label>Envie-nos uma mensagem, será um prazer lhe ajudar.</ion-label>
     <ion-item>
       <ion-textarea [(ngModel)]="message" rows='10' name="message"></ion-textarea>
     </ion-item>

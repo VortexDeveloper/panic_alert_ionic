@@ -3,7 +3,7 @@
     <name>Alerta do Pânico</name>
     <description>Spread the word</description>
     <author email="douggomes@vortexdeveloper.com" href="http://vortexdeveloper.com/">Vortex Developer</author>
-    <content src="http://192.168.0.100:8100" original-src="index.html"/>
+    <content src="index.html"/>
     <access origin="*"/>
     <allow-navigation href="http://ionic.local/*"/>
     <allow-navigation href="http://192.168.0.10:8100"/>
@@ -106,6 +106,7 @@
     </plugin>
     <plugin name="cordova-android-support-gradle-release" spec="~0.0.1"/>
     <plugin name="cordova-plugin-vibration" spec="~2.1.5"/>
+    <plugin name="cordova-plugin-nativegeocoder" spec="~1.0.2"/>
     <icon src="resources/android/icon/drawable-xhdpi-icon.png"/>
     <engine name="android" spec="~6.1.2"/>
 </widget>

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>HelpRequest</ion-title>
+    <ion-title>Solicitação de ajuda</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,14 +22,11 @@
     <div class='help-item' text-center>
       {{hour}}
     </div>
-    <!-- <div class='help-item' text-center>
-      Rua Gomes da Félix, 32
-    </div> -->
     <div class='help-item' text-center>
-      LAT: {{position.latitude}} LNG: {{position.longitude}}
+      <p text-wrap>{{address.formatted_address}}</p>
     </div>
     <div class='help-item' text-center>
-      ACC: {{position.accuracy}}
+      LAT: {{position.latitude}} LNG: {{position.longitude}}
     </div>
   </div>
 

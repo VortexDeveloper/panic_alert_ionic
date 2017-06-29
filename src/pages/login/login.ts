@@ -42,7 +42,7 @@ export class Login {
   }
 
   login() {
-    this.showLoader('Efetuando login...');
+    this.showLoader('Fazendo login...');
     this.userProvider.login(this.user).subscribe(
       (data) => {
         if(data.authentication != "" || data.authentication !== undefined) {
@@ -56,8 +56,8 @@ export class Login {
       },
       (error) => {
         this.loader.dismiss();
-        console.log(error.json() || 'Server error');
-        this.presentToast(error.json().error);
+        console.log(error.json());
+        this.presentToast(error.json()[0].message);
       }
     );
   }

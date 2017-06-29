@@ -13,17 +13,22 @@
 
 <ion-content>
   <ion-list inset>
-    <ion-item (click)='showAlert()'>
-      <h2>Configurações GPS</h2>
-      <small>Configurar GPS (Ativo ou Inativo)</small>
+    <ion-item (click)="openPage('ContactsPage')">
+      <h2>Contatos de Ajuda</h2>
+      <p text-wrap>
+        <small>
+          Adicionar, remover e configurar contatos de ajuda
+        </small>
+      </p>
     </ion-item>
-    <ion-item>
-      <h2>Tempo do botão de pânico</h2>
-      <small>Tempo pressionando o botão para ativá-lo</small>
-    </ion-item>
-    <ion-item>
-      <h2>Mensagem</h2>
-      <small>Personalizar mensagem de pedido de ajuda</small>
+    <ion-item (click)="openPage('OpenContactsPage')">
+      <h2>Solicitações de Contato</h2>
+      <p text-wrap>
+        <small>
+          Verificar se outros usuários estão solicitando que você seja um
+          contato de ajuda deles.
+        </small>
+      </p>
     </ion-item>
   </ion-list>
 </ion-content>

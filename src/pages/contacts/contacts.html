@@ -25,8 +25,8 @@
   </ion-list>
   <ion-list class='contacts' *ngIf="myContacts.length == 0">
     <ion-item margin-bottom>
-      <h2>Parece que você ainda não cadastrou...</h2>
-      <p text-wrap>Clique no botão abaixo para adicionar um contato de emergência</p>
+      <h2>Parece que você ainda não cadastrou nenhum contato de emergência.</h2>
+      <p text-wrap>Clique no botão abaixo para adicionar</p>
     </ion-item>
   </ion-list>
   <button ion-button clear (click)='registerContact()'>
