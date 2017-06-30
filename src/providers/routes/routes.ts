@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 export class RoutesProvider {
   host(){
     // return 'http://localhost:3000/';
-    return 'http://192.168.0.100:3000/';
+    return 'http://192.168.0.25:3000/';
     // return 'http://10.0.2.2:3000/';
     // return 'https://alertadepanico.herokuapp.com/';
   }
