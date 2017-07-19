@@ -27,6 +27,8 @@ export class Registration {
     ddd: string;
     phone_number: string
   };
+
+  code: string;
   show_verify_field: boolean = false;
   loader: any;
 
@@ -118,7 +120,7 @@ export class Registration {
 
   checkVerificationCode() {
     this.showLoader('Verificando código...');
-    this.twilio.check_verification_code(this.user).subscribe(
+    this.twilio.check_verification_code(this.user, this.code).subscribe(
       (data) => {
         this.loader.dismiss();
         if(data.success) {

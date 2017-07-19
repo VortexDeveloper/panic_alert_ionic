@@ -58,9 +58,9 @@ export class TwilioProvider {
       .map(res => res.json());
   }
 
-  check_verification_code(user) {
+  check_verification_code(user, code) {
     this.check_parameters.phone_number = user.ddd + user.phone_number;
-    this.check_parameters.verification_code = user.code;
+    this.check_parameters.verification_code = code;
 
     let check_url = this.construct_get_params(this.check_url, this.check_parameters);
 

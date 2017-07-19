@@ -46,12 +46,14 @@
     </ion-row>
   </ion-grid>
 
-  <ion-input placeholder="Código de Verificação" type="text"
-    [(ngModel)]="user.code" name="code" *ngIf="show_verify_field"></ion-input>
+  <ion-input placeholder="Código de Verificação" type="text" [(ngModel)]="code" name="code" *ngIf="show_verify_field"></ion-input>
+
   <button (click)="verifyNumber()" margin-top ion-button primary text-center
     outline block type='submit' *ngIf="!show_verify_field">Verificar número</button>
+
   <button (click)="checkVerificationCode()" margin-top ion-button primary
     text-center outline block type='submit' *ngIf="show_verify_field">Verificar código</button>
+
   <button (click)="verifyNumber()" margin-top ion-button primary
     text-center outline block type='submit' *ngIf="show_verify_field">Reenviar código</button>
 </ion-content>
