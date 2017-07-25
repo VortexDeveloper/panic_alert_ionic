@@ -14,6 +14,6 @@ export class RoutesProvider {
     // return 'http://localhost:3000/';
     // return 'http://10.0.0.109:3000/';
     // return 'http://10.0.2.2:3000/';
-    return 'https://alertadepanico.herokuapp.com/';
+    return 'http://alertadepanico.herokuapp.com/';
   }
 }
